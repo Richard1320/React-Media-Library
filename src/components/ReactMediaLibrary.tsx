@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactMediaLibraryProps} from "../types";
+import {ReactMediaLibraryProps} from "../../types";
 
 const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLibraryProps): JSX.Element => {
 
