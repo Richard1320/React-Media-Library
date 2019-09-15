@@ -2,7 +2,7 @@
   "name": "react-media-library",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "types": "types/index.d.ts",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "tsc -w",
     "postinstall": "npm run build",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf build && tsc"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.4",
+    "@types/react": "^16.9.2",
+    "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12"
   }
 }
