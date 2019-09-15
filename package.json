@@ -1,0 +1,33 @@
+{
+  "name": "react-media-library",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Richard1320/React-Media-Library.git"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "postinstall": "npm run build",
+    "build": "rm -rf dist && tsc"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/expect": "^1.20.4",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.8",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "ts-mocha": "^6.0.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.5.4",
+    "react-bootstrap": "^1.0.0-beta.12"
+  }
+}
