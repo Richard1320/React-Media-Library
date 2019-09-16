@@ -11,17 +11,25 @@
   "scripts": {
     "dev": "tsc -w",
     "prepare": "npm run build",
-    "build": "rm -rf build && tsc"
+    "build": "rm -rf build && tsc",
+    "test": "ts-mocha ./test/**/*"
   },
   "author": "",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.2",
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/expect": "^1.20.4",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
     "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "chai": "^4.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jsdom": "^15.1.1",
+    "jsdom-global": "^3.0.2",
     "mocha": "^6.2.0",
     "ts-mocha": "^6.0.0",
     "ts-node": "^8.3.0",
@@ -29,5 +37,9 @@
   },
   "dependencies": {
     "react-bootstrap": "^1.0.0-beta.12"
+  },
+  "peerDependencies": {
+    "react": "^16.X.X",
+    "react-dom": "^16.X.X"
   }
 }
