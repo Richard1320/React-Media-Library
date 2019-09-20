@@ -18,26 +18,25 @@ function readFile(file: Blob): Promise<string | ArrayBuffer | null> {
 }
 
 const FileUpload: React.FC = (): JSX.Element => {
-	const onDrop = useCallback( (acceptedFiles: Blob[]) => {
+	const onDrop = useCallback((acceptedFiles: Blob[]) => {
 		// Do something with the files
 
-		acceptedFiles.forEach(async(file: Blob) => {
-			try {
-				const fileBase64 = await readFile(file);
-				console.log("file base 64",fileBase64);
-			} catch (err) {
-				console.log("React Media Library FileReader error",err);
-			}
+		acceptedFiles.forEach(async (file: Blob) => {
+			const fileBase64 = await readFile(file);
+			console.log("file base 64", fileBase64);
 		});
 	}, []);
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
 	return (
-		<div {...getRootProps()}>
+		<div
+			className={`p-5 text-center alert alert-${isDragActive ? "success" : "secondary"}`}
+			{...getRootProps()}
+		>
 			<input {...getInputProps()} />
 			{isDragActive ?
-				<p>Drop the files here ...</p> :
-				<p>Drag 'n' drop some files here, or click to select files</p>
+				<p className="m-0">Drop the files here ...</p> :
+				<p className="m-0">Drag 'n' drop some files here, or click to select files</p>
 			}
 		</div>
 	)

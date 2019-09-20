@@ -8,7 +8,9 @@ const ReactMediaLibraryTabs: React.FC = (): JSX.Element => {
 	return (
 		<Tabs defaultActiveKey="upload" id="react-media-library-tabs">
 			<Tab eventKey="upload" title="Upload">
-				<FileUpload/>
+				<div className="pt-3">
+					<FileUpload/>
+				</div>
 			</Tab>
 			<Tab eventKey="library" title="Library">
 				<h1>Library</h1>
