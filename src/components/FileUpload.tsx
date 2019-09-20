@@ -1,27 +1,30 @@
 import React, {useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
 
-function readFile(file: Blob) {
-	const reader = new FileReader();
+function readFile(file: Blob): Promise<string | ArrayBuffer | null> {
+	const fileReader = new FileReader();
 
-	reader.onabort = () => console.log('file reading was aborted');
-	reader.onerror = () => console.log('file reading has failed');
-	reader.onload = () => {
-		// Do whatever you want with the file contents
-		const binaryStr = reader.result;
-		console.log(binaryStr)
-	};
+	return new Promise((resolve, reject) => {
+		fileReader.onerror = () => {
+			fileReader.abort();
+			reject(new DOMException("Problem parsing input file."));
+		};
 
-	reader.readAsBinaryString(file);
+		fileReader.onload = () => {
+			resolve(fileReader.result);
+		};
+		fileReader.readAsDataURL(file);
+	});
 }
 
 const FileUpload: React.FC = (): JSX.Element => {
-	const onDrop = useCallback(acceptedFiles => {
+	const onDrop = useCallback( (acceptedFiles: Blob[]) => {
 		// Do something with the files
 
-		acceptedFiles.forEach((file: Blob) => {
+		acceptedFiles.forEach(async(file: Blob) => {
 			try {
-				readFile(file);
+				const fileBase64 = await readFile(file);
+				console.log("file base 64",fileBase64);
 			} catch (err) {
 				console.log("React Media Library FileReader error",err);
 			}
