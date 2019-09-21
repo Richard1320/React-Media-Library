@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
+import {FileUploadProps} from "../../types";
 
 function readFile(file: Blob): Promise<string | ArrayBuffer | null> {
 	const fileReader = new FileReader();
@@ -17,13 +18,14 @@ function readFile(file: Blob): Promise<string | ArrayBuffer | null> {
 	});
 }
 
-const FileUpload: React.FC = (): JSX.Element => {
+const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Element => {
 	const onDrop = useCallback((acceptedFiles: Blob[]) => {
 		// Do something with the files
 
 		acceptedFiles.forEach(async (file: Blob) => {
 			const fileBase64 = await readFile(file);
-			console.log("file base 64", fileBase64);
+			// console.log("file base 64", fileBase64);
+			props.fileUploadCallback(fileBase64);
 		});
 	}, []);
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});

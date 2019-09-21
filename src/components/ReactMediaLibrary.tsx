@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import ReactMediaLibraryTabs from "./ReactMediaLibraryTabs";
 
 const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLibraryProps): JSX.Element => {
-
 	return (
 		<Modal
 			size="xl"
@@ -19,7 +18,9 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<ReactMediaLibraryTabs/>
+				<ReactMediaLibraryTabs
+					fileUploadCallback={props.fileUploadCallback}
+				/>
 			</Modal.Body>
 		</Modal>
 	);
