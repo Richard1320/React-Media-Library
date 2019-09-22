@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {FileUploadProps} from "../../types";
-import {FileMeta} from "../../types/components/FileUpload";
+import {FileMeta, FileUploadProps} from "../../types";
 
 function readFile(file: File): Promise<string | ArrayBuffer | null> {
 	const fileReader = new FileReader();
