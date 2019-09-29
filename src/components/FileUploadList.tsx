@@ -29,7 +29,7 @@ const FileUploadList: React.FC<FileUploadListProps> = (props: FileUploadListProp
 
 	return (
 		<React.Fragment>
-			<h3>Files</h3>
+			{props.fileList.length ? (<h3>Files</h3>) : ""}
 			<ul className="list-groups p-0">
 				{renderList()}
 			</ul>
