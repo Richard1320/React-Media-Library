@@ -1,5 +1,5 @@
-import {FileListItem} from "./FileUpload";
+import {FileUploadListItem} from "./FileUpload";
 
 export interface FileUploadListProps {
-	fileList: FileListItem[];
+	fileUploadList: FileUploadListItem[];
 }

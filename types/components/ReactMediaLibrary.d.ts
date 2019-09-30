@@ -3,8 +3,9 @@ import {FileUploadProps} from "./FileUpload";
 import {FileLibraryProps} from "./FileLibrary";
 
 export interface ReactMediaLibraryProps extends FileUploadProps, FileLibraryProps {
-	show:boolean;
+	show: boolean;
 	onHide: () => void;
 	modalTitle?: string;
 }
+
 export const ReactMediaLibrary: React.FC<ReactMediaLibraryProps>;

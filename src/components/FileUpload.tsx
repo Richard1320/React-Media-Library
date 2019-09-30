@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {FileMeta, FileUploadProps} from "../../types";
-import {FileListItem} from "../../types/components/FileUpload";
+import {FileUploadListItem} from "../../types/components/FileUpload";
 import FileUploadList from "./FileUploadList";
 
 function readFile(file: File): Promise<string | ArrayBuffer | null> {
@@ -21,12 +21,12 @@ function readFile(file: File): Promise<string | ArrayBuffer | null> {
 }
 
 const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Element => {
-	const [fileList, setFileList] = useState<FileListItem[]>([]);
+	const [fileUploadList, setFileUploadList] = useState<FileUploadListItem[]>([]);
 	const onDrop = useCallback((acceptedFiles: File[]) => {
-		let newFileList: FileListItem[] = acceptedFiles.map((element: File) => {
+		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
 			return {name: element.name, status: 0};
 		});
-		setFileList(newFileList);
+		setFileUploadList(newFileUploadList);
 
 		// Loop through dropped files
 		acceptedFiles.forEach(async (file: File, index: number) => {
@@ -34,9 +34,9 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Elem
 				const fileBase64 = await readFile(file);
 				const fileMeta: FileMeta = {fileName: file.name, type: file.type, size: file.size};
 				const result: boolean = await props.fileUploadCallback(fileBase64, fileMeta);
-				newFileList = [...newFileList];
-				newFileList[index].status = (result) ? 1 : -1;
-				setFileList(newFileList);
+				newFileUploadList = [...newFileUploadList];
+				newFileUploadList[index].status = (result) ? 1 : -1;
+				setFileUploadList(newFileUploadList);
 			})();
 		});
 	}, []);
@@ -54,7 +54,7 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Elem
 					<p className="m-0">Drag 'n' drop some files here, or click to select files</p>
 				}
 			</div>
-			<FileUploadList fileList={fileList}/>
+			<FileUploadList fileUploadList={fileUploadList}/>
 		</React.Fragment>
 	)
 };

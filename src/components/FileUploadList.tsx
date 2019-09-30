@@ -1,6 +1,6 @@
 import React, {ReactNode} from "react";
 import {FileUploadListProps} from "../../types";
-import {FileListItem} from "../../types/components/FileUpload";
+import {FileUploadListItem} from "../../types/components/FileUpload";
 import Badge from "react-bootstrap/Badge";
 
 function renderBadge(status: number): ReactNode {
@@ -18,7 +18,7 @@ function renderBadge(status: number): ReactNode {
 const FileUploadList: React.FC<FileUploadListProps> = (props: FileUploadListProps): JSX.Element => {
 	function renderList(): ReactNode[] {
 		const render: ReactNode[] = [];
-		props.fileList.forEach((element: FileListItem, index: number) => {
+		props.fileUploadList.forEach((element: FileUploadListItem, index: number) => {
 			render.push(<li key={index} className="list-group-item d-flex justify-content-between align-items-center">
 				{element.name}
 				{renderBadge(element.status)}
@@ -29,7 +29,7 @@ const FileUploadList: React.FC<FileUploadListProps> = (props: FileUploadListProp
 
 	return (
 		<React.Fragment>
-			{props.fileList.length ? (<h3>Files</h3>) : ""}
+			{props.fileUploadList.length ? (<h3>Files</h3>) : ""}
 			<ul className="list-groups p-0">
 				{renderList()}
 			</ul>

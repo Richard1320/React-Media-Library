@@ -1,7 +1,12 @@
-export interface FileLibraryItem {
-
+export interface FileLibraryListItem {
+	title?: string;
+	size?: number;
+	createdAt?: Date;
+	url: string;
+	description?: string;
+	fileName: string;
 }
 
 export interface FileLibraryProps {
-	fileLibraryItems: FileLibraryItem[];
+	fileLibraryList: FileLibraryListItem[];
 }
