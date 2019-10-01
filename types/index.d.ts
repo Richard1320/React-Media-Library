@@ -2,4 +2,4 @@ export {ReactMediaLibrary, ReactMediaLibraryProps} from "./components/ReactMedia
 export {ReactMediaLibraryTabsProps} from "./components/ReactMediaLibraryTabs";
 export {FileUploadProps, FileMeta} from "./components/FileUpload";
 export {FileUploadListProps} from "./components/FileUploadList";
-export {FileLibraryProps, FileLibraryItem} from "./components/FileLibrary";
+export {FileLibraryProps, FileLibraryListItem} from "./components/FileLibrary";

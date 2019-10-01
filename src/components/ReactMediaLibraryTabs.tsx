@@ -3,6 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import FileUpload from "./FileUpload";
 import {ReactMediaLibraryTabsProps} from "../../types";
+import FileLibrary from "./FileLibrary";
 
 const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: ReactMediaLibraryTabsProps): JSX.Element => {
 	return (
@@ -15,7 +16,7 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 				</div>
 			</Tab>
 			<Tab eventKey="library" title="Library">
-				<h1>Library</h1>
+				<FileLibrary fileLibraryList={props.fileLibraryList}/>
 			</Tab>
 		</Tabs>
 	);
