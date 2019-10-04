@@ -3,6 +3,8 @@ import {FileLibraryListItem} from "../../types";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
+import formatBytes from "../utils/formatBytes";
+import formatDate from "../utils/formatDate";
 
 const imgStyle: React.CSSProperties = {
 	width: "100%",
@@ -21,8 +23,10 @@ const FileLibraryCard: React.FC<FileLibraryListItem> = (props: FileLibraryListIt
 					<Card.Text>{props.description}</Card.Text>
 				</Card.Body>
 			)}
-			<ListGroup className="list-group-flush">
-				<ListGroupItem>Filename: {props.fileName}</ListGroupItem>
+			<ListGroup className="list-group-flush small">
+				{(props.fileName) && (<ListGroupItem>{props.fileName}</ListGroupItem>)}
+				{(props.size) && (<ListGroupItem>{formatBytes(props.size)}</ListGroupItem>)}
+				{(props.createdAt) && (<ListGroupItem>{formatDate(props.createdAt)}</ListGroupItem>)}
 			</ListGroup>
 		</Card>
 	);
