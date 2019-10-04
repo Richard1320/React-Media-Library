@@ -17,14 +17,14 @@ function renderBadge(status: number): ReactNode {
 
 const FileUploadList: React.FC<FileUploadListProps> = (props: FileUploadListProps): JSX.Element => {
 	function renderList(): ReactNode[] {
-		const render: ReactNode[] = [];
-		props.fileUploadList.forEach((element: FileUploadListItem, index: number) => {
-			render.push(<li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+		if (!props.fileUploadList) return [];
+
+		return props.fileUploadList.map((element: FileUploadListItem, index: number) => {
+			return (<li key={index} className="list-group-item d-flex justify-content-between align-items-center">
 				{element.name}
 				{renderBadge(element.status)}
 			</li>);
 		});
-		return render;
 	}
 
 	return (
