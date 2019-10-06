@@ -11,4 +11,5 @@ export interface FileLibraryProps {
 	fileLibraryList: FileLibraryListItem[];
 	sortProperty?: "title" | "createdAt" | "size" | "fileName";
 	sortAscending?: boolean;
+	fileSelectCallback: (item: FileLibraryListItem) => void;
 }

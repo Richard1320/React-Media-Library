@@ -21,6 +21,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 				<ReactMediaLibraryTabs
 					fileUploadCallback={props.fileUploadCallback}
 					fileLibraryList={props.fileLibraryList}
+					fileSelectCallback={props.fileSelectCallback}
 				/>
 			</Modal.Body>
 		</Modal>

@@ -13,9 +13,15 @@ const imgStyle: React.CSSProperties = {
 	objectPosition: "50% 50%",
 };
 
-const FileLibraryCard: React.FC<FileLibraryListItem> = (props: FileLibraryListItem): JSX.Element => {
+interface IProps extends FileLibraryListItem {
+	cardClickCallback: (item: FileLibraryListItem) => void;
+	selectedCard?: FileLibraryListItem;
+}
+
+const FileLibraryCard: React.FC<IProps> = (props: IProps): JSX.Element => {
+
 	return (
-		<Card>
+		<Card onClick={() => props.cardClickCallback(props)}>
 			<Card.Img variant="top" src={props.url} style={imgStyle}/>
 			{(props.title || props.description) && (
 				<Card.Body>

@@ -1,10 +1,13 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useState} from "react";
 import {FileLibraryListItem, FileLibraryProps} from "../../types";
 import Col from "react-bootstrap/Col";
 import FileLibraryCard from "./FileLibraryCard";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.Element => {
+
+	const [selectedItem, setSelectedItem] = useState<FileLibraryListItem | undefined>(undefined);
 
 	function sortArray(a: FileLibraryListItem, b: FileLibraryListItem): -1 | 0 | 1 {
 		try {
@@ -31,16 +34,34 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 
 		return props.fileLibraryList.sort(sortArray).map((element: FileLibraryListItem, index: number) => {
 			return (<Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-				<FileLibraryCard {...element} />
+				<FileLibraryCard
+					cardClickCallback={(item: FileLibraryListItem) => setSelectedItem(item)}
+					{...element}
+				/>
 			</Col>);
 		});
 	}
+
+	const submitRow: ReactNode = (selectedItem && (
+		<Row>
+			<Col>
+				<Button
+					variant="primary"
+					className="text-right"
+					onClick={() => props.fileSelectCallback(selectedItem as FileLibraryListItem)}
+				>
+					Submit
+				</Button>
+			</Col>
+		</Row>
+	));
 
 	return (
 		<React.Fragment>
 			<Row className="py-3">
 				{renderList()}
 			</Row>
+			{submitRow}
 		</React.Fragment>
 	);
 };
