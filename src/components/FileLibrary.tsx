@@ -1,15 +1,12 @@
 import React, {ReactNode, useState} from "react";
-import {FileLibraryListItem, FileLibraryPagerProps, FileLibraryProps} from "../../types";
+import {FileLibraryListItem, FileLibraryProps} from "../../types";
 import Col from "react-bootstrap/Col";
 import FileLibraryCard from "./FileLibraryCard";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import FileLibraryPager from "./FileLibraryPager";
 
-interface IProps extends FileLibraryProps, FileLibraryPagerProps {
-}
-
-const FileLibrary: React.FC<IProps> = (props: IProps): JSX.Element => {
+const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.Element => {
 
 	const [selectedItem, setSelectedItem] = useState<FileLibraryListItem | undefined>(undefined);
 	const [page, setPage] = useState<number>(1);
