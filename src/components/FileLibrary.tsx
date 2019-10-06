@@ -1,13 +1,19 @@
 import React, {ReactNode, useState} from "react";
-import {FileLibraryListItem, FileLibraryProps} from "../../types";
+import {FileLibraryListItem, FileLibraryPagerProps, FileLibraryProps} from "../../types";
 import Col from "react-bootstrap/Col";
 import FileLibraryCard from "./FileLibraryCard";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import FileLibraryPager from "./FileLibraryPager";
 
-const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.Element => {
+interface IProps extends FileLibraryProps, FileLibraryPagerProps {
+}
+
+const FileLibrary: React.FC<IProps> = (props: IProps): JSX.Element => {
 
 	const [selectedItem, setSelectedItem] = useState<FileLibraryListItem | undefined>(undefined);
+	const [page, setPage] = useState<number>(1);
+	const itemsPerPage = 12;
 
 	function sortArray(a: FileLibraryListItem, b: FileLibraryListItem): -1 | 0 | 1 {
 		try {
@@ -32,15 +38,26 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 	function renderList(): ReactNode[] {
 		if (!props.fileLibraryList) return [];
 
-		return props.fileLibraryList.sort(sortArray).map((element: FileLibraryListItem, index: number) => {
-			return (<Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-				<FileLibraryCard
-					cardClickCallback={(item: FileLibraryListItem) => setSelectedItem(item)}
-					selectedItem={selectedItem}
-					{...element}
-				/>
-			</Col>);
-		});
+		const arrayStart = (page - 1) * itemsPerPage;
+		let arrayEnd = arrayStart + itemsPerPage;
+		if (arrayEnd > props.fileLibraryList.length) {
+			// If calculated end extends past length of actual array
+			// Set calculated end as length of array
+			arrayEnd = props.fileLibraryList.length;
+		}
+
+		return props.fileLibraryList
+			.sort(sortArray)
+			.slice(arrayStart, arrayEnd)
+			.map((element: FileLibraryListItem, index: number) => {
+				return (<Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
+					<FileLibraryCard
+						cardClickCallback={(item: FileLibraryListItem) => setSelectedItem(item)}
+						selectedItem={selectedItem}
+						{...element}
+					/>
+				</Col>);
+			});
 	}
 
 	const submitRow: ReactNode = (selectedItem && (
@@ -56,11 +73,25 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 		</Row>
 	));
 
+	const pagerRow: ReactNode = ((props.fileLibraryList.length > itemsPerPage) && (
+		<Row>
+			<Col className="d-flex justify-content-center">
+				<FileLibraryPager
+					count={props.fileLibraryList.length}
+					page={page}
+					pagerCallback={(number: number) => setPage(number)}
+					itemsPerPage={itemsPerPage}
+				/>
+			</Col>
+		</Row>
+	));
+
 	return (
 		<React.Fragment>
 			<Row className="py-3">
 				{renderList()}
 			</Row>
+			{pagerRow}
 			{submitRow}
 		</React.Fragment>
 	);
