@@ -36,6 +36,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 			return (<Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
 				<FileLibraryCard
 					cardClickCallback={(item: FileLibraryListItem) => setSelectedItem(item)}
+					selectedItem={selectedItem}
 					{...element}
 				/>
 			</Col>);
