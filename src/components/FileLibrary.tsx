@@ -45,10 +45,9 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 
 	const submitRow: ReactNode = (selectedItem && (
 		<Row>
-			<Col>
+			<Col className="text-right">
 				<Button
 					variant="primary"
-					className="text-right"
 					onClick={() => props.fileSelectCallback(selectedItem as FileLibraryListItem)}
 				>
 					Submit
