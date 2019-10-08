@@ -5,6 +5,8 @@ export interface FileLibraryListItem {
 	url: string;
 	description?: string;
 	fileName: string;
+
+	[key: string]: any;
 }
 
 export interface FileLibraryProps {
