@@ -15,13 +15,15 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 					/>
 				</div>
 			</Tab>
-			<Tab eventKey="library" title="Library">
-				<FileLibrary
-					fileLibraryList={props.fileLibraryList}
-					fileSelectCallback={props.fileSelectCallback}
-					fileDeleteCallback={props.fileDeleteCallback}
-				/>
-			</Tab>
+			{props.fileLibraryList.length && (
+				<Tab eventKey="library" title="Library">
+					<FileLibrary
+						fileLibraryList={props.fileLibraryList}
+						fileSelectCallback={props.fileSelectCallback}
+						fileDeleteCallback={props.fileDeleteCallback}
+					/>
+				</Tab>
+			)}
 		</Tabs>
 	);
 };
