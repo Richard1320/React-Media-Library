@@ -60,11 +60,22 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 	const submitRow: ReactNode = (selectedItem && (
 		<Row>
 			<Col className="text-right">
+				{(props.fileDeleteCallback !== undefined) && (
+					<Button
+						variant="danger"
+						onClick={() => {
+							if (props.fileDeleteCallback) props.fileDeleteCallback(selectedItem as FileLibraryListItem);
+						}}
+						className="mr-3"
+					>
+						Delete
+					</Button>
+				)}
 				<Button
 					variant="primary"
 					onClick={() => props.fileSelectCallback(selectedItem as FileLibraryListItem)}
 				>
-					Submit
+					Select File
 				</Button>
 			</Col>
 		</Row>
