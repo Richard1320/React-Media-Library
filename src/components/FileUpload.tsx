@@ -4,7 +4,7 @@ import {FileMeta, FileUploadProps} from "../../types";
 import {FileUploadListItem} from "../../types/components/FileUpload";
 import FileUploadList from "./FileUploadList";
 
-function readFile(file: File): Promise<string | ArrayBuffer | null> {
+function readFile(file: File): Promise<string> {
 	const fileReader = new FileReader();
 
 	return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ function readFile(file: File): Promise<string | ArrayBuffer | null> {
 		};
 
 		fileReader.onload = () => {
-			resolve(fileReader.result);
+			resolve(fileReader.result as string);
 		};
 		fileReader.readAsDataURL(file);
 	});
