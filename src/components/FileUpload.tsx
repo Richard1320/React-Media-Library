@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {FileMeta, FileUploadProps} from "../../types";
 import {FileUploadListItem} from "../../types/components/FileUpload";
@@ -22,14 +22,15 @@ function readFile(file: File): Promise<string | ArrayBuffer | null> {
 
 const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Element => {
 	const [fileUploadList, setFileUploadList] = useState<FileUploadListItem[]>([]);
-	const onDrop = useCallback((acceptedFiles: File[]) => {
+
+	function onDrop(acceptedFiles: File[]) {
 		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
 			return {name: element.name, status: 0};
-		});
+		}).concat(fileUploadList);
 		setFileUploadList(newFileUploadList);
 
 		// Loop through dropped files
-		acceptedFiles.forEach(async (file: File, index: number) => {
+		acceptedFiles.forEach((file: File, index: number) => {
 			(async () => {
 				const fileBase64 = await readFile(file);
 				const fileMeta: FileMeta = {fileName: file.name, type: file.type, size: file.size};
@@ -39,9 +40,8 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Elem
 				setFileUploadList(newFileUploadList);
 			})();
 		});
-	}, []);
+	}
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
-
 	return (
 		<React.Fragment>
 			<div
