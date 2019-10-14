@@ -4,8 +4,7 @@ export interface FileLibraryListItem {
 	createdAt?: Date;
 	url: string;
 	description?: string;
-	fileName: string;
-
+	fileName?: string;
 	[key: string]: any;
 }
 
