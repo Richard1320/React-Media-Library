@@ -25,7 +25,7 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Elem
 
 	function onDrop(acceptedFiles: File[]) {
 		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
-			return {name: element.name, status: 0};
+			return {fileName: element.name, status: 0};
 		}).concat(fileUploadList);
 		setFileUploadList(newFileUploadList);
 

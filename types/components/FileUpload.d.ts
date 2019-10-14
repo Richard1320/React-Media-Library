@@ -9,6 +9,6 @@ export interface FileUploadProps {
 }
 
 export interface FileUploadListItem {
-	name: string;
+	fileName: string;
 	status: number;
 }
