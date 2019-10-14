@@ -15,7 +15,7 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 					/>
 				</div>
 			</Tab>
-			{props.fileLibraryList.length && (
+			{(props.fileLibraryList.length > 0) && (
 				<Tab eventKey="library" title="Library">
 					<FileLibrary
 						fileLibraryList={props.fileLibraryList}
