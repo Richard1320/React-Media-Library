@@ -8,6 +8,16 @@
     "type": "git",
     "url": "git@github.com:Richard1320/React-Media-Library.git"
   },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-dom",
+    "react-bootstrap",
+    "drag-and-drop",
+    "filemanager",
+    "file-manager",
+    "file-manager-ui"
+  ],
   "scripts": {
     "dev": "tsc -w",
     "prepare": "npm run build",
@@ -15,7 +25,7 @@
     "test": "ts-mocha ./test/**/*"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.2",
     "@types/enzyme": "^3.10.3",
