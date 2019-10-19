@@ -82,8 +82,8 @@ Note: All (more) interfaces are viewable in the `/types` directory of this packa
 Property | Type | Description
 --- | --- | ---
 fileName | string | Filename of uploaded file.
-type | string | The ASCII-encoded string in lower case representing the media type. See [File API Size](https://www.w3.org/TR/FileAPI/#dfn-size)
-size | number | The size of the byte sequence in number of bytes. See [File API Type](https://www.w3.org/TR/FileAPI/#dfn-type)
+type | string | The ASCII-encoded string in lower case representing the media type. See [File API Type](https://www.w3.org/TR/FileAPI/#dfn-type)
+size | number | The size of the byte sequence in number of bytes. See [File API Size](https://www.w3.org/TR/FileAPI/#dfn-size)
 
 ### FileLibraryListItem
 
