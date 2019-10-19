@@ -117,7 +117,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "size": 294880,
                 "fileName": "img_3549.jpg",
                 "type": "image/jpeg",
-                "createdAt": "2019-10-17T03:12:29.866Z",
+                "createdAt": new Date("2019-10-17T03:12:29.866Z"),
                 "thumbnailUrl": "https://mycustomcdn.com/mg_3549.jpg"
             },
             {
@@ -126,7 +126,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "size": 864483,
                 "fileName": "201702.jpg",
                 "type": "image/jpeg",
-                "createdAt": "2019-10-17T03:12:45.018Z",
+                "createdAt": new Date("2019-10-17T03:12:45.018Z"),
                 "thumbnailUrl": "https://mycustomcdn.com/201702.jpg"
             },
             {
@@ -135,7 +135,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "size": 586458,
                 "fileName": "271092.jpg",
                 "type": "image/jpeg",
-                "createdAt": "2019-10-17T03:19:33.498Z",
+                "createdAt": new Date("2019-10-17T03:19:33.498Z"),
                 "thumbnailUrl": "https://mycustomcdn.com/271092.jpg"
             },
             {
@@ -144,7 +144,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "size": 894665,
                 "fileName": "photo-107.jpg",
                 "type": "image/jpeg",
-                "createdAt": "2019-10-17T03:28:39.723Z",
+                "createdAt": new Date("2019-10-17T03:28:39.723Z"),
                 "thumbnailUrl": "https://mycustomcdn.com/photo-107.jpg"
             }
         ]);
