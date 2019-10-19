@@ -25,18 +25,18 @@ Prop | Value Type | Default | Description
 show | boolean | N/A (Required) | Shows and hides the modal. The on / off switch is controlled outside the app. Your app will have to inform React Media Library when to hide and when to show.
 onHide | function | N/A (Required) | Callback function when the user clicks the close button. At the very least, this function should set the `show` prop to false.
 modalTitle | string | "Media Library" | Title text that appears at the top of the modal. 
-fileLibraryList | array | `[]` | Array of files to display in the library tab. Each item in the array has to be of type [FileLibraryListItem](#FileLibraryListItem).
+fileLibraryList | array | `[]` | Array of files to display in the library tab. Each item in the array has to be of type [FileLibraryListItem](#filelibrarylistitem).
 sortProperty | "title", "createdAt", "size" or "fileName" | "createdAt" | Sorting property for files in the library.
 sortAscending | boolean | false | Sort direction
-fileUploadCallback | function | N/A (Required) | See [fileUploadCallback](#fileUploadCallback)  
-fileSelectCallback | function | N/A (Required) | See [fileSelectCallback](#fileSelectCallback)  
-fileDeleteCallback | function | N/A | See [fileDeleteCallback](#fileDeleteCallback)  
+fileUploadCallback | function | N/A (Required) | See [fileUploadCallback](#fileuploadcallback)  
+fileSelectCallback | function | N/A (Required) | See [fileSelectCallback](#fileselectcallback)  
+fileDeleteCallback | function | N/A | See [fileDeleteCallback](#filedeletecallback)  
 
 ## Functions
 
 ## fileUploadCallback
 
-Async callback function when the user chooses a file to upload. This is used for both the drag-and-drop as well as the browser file select. The first argument is the file base64 as a string. The second argument contains the [FileMeta](#FileMeta) information. This promise should return true or false to let React Media Library know if the APIs successfully processed the file.
+Async callback function when the user chooses a file to upload. This is used for both the drag-and-drop as well as the browser file select. The first argument is the file base64 as a string. The second argument contains the [FileMeta](#filemeta) information. This promise should return true or false to let React Media Library know if the APIs successfully processed the file.
 
 ```
 import {FileMeta} from 'react-media-library';
@@ -52,7 +52,7 @@ async function uploadCallback(fileBase64: string, fileMeta: FileMeta): Promise<b
 
 ### fileSelectCallback
 
-Callback function when the user selects a file from the library. Returns [FileLibraryListItem](#FileLibraryListItem) as the first argument.
+Callback function when the user selects a file from the library. Returns [FileLibraryListItem](#filelibrarylistitem) as the first argument.
 
 ```
 import {FileLibraryListItem} from 'react-media-library';
@@ -63,7 +63,7 @@ function selectCallback(item: FileLibraryListItem) {
 
 ### fileDeleteCallback
 
-Optional callback function when the user chooses a file and clicks the delete button. Delete button will appear beside the select button in the library tab, or will be hidden if this prop is not set. Returns [FileLibraryListItem](#FileLibraryListItem) as the first argument.
+Optional callback function when the user chooses a file and clicks the delete button. Delete button will appear beside the select button in the library tab, or will be hidden if this prop is not set. Returns [FileLibraryListItem](#filelibrarylistitem) as the first argument.
  
 ```
 import {FileLibraryListItem} from 'react-media-library';
@@ -89,6 +89,7 @@ size | number | The size of the byte sequence in number of bytes. See [File API 
 
 Property | Type | Description
 --- | --- | ---
+_id | string / number | Unique identifier for this item. Required to properly select the item in library tab.
 title | string (optional) | Displayed title on card in library tab.
 description | string (optional) | Displayed description on card in library tab.
 size | number (optional) | Displayed size on card in library tab.
@@ -111,6 +112,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
         // TODO Get file list from database
         setFileLibraryList([
             {
+                "_id": 1,
                 "title": "Me and my dog",
                 "size": 294880,
                 "fileName": "img_3549.jpg",
@@ -119,6 +121,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "thumbnailUrl": "https://mycustomcdn.com/mg_3549.jpg"
             },
             {
+                "_id": 2,
                 "title": "2019 Summer Vacation",
                 "size": 864483,
                 "fileName": "201702.jpg",
@@ -127,6 +130,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "thumbnailUrl": "https://mycustomcdn.com/201702.jpg"
             },
             {
+                "_id": 3,
                 "title": "Our new baby",
                 "size": 586458,
                 "fileName": "271092.jpg",
@@ -135,6 +139,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "thumbnailUrl": "https://mycustomcdn.com/271092.jpg"
             },
             {
+                "_id": 4,
                 "title": "My new car",
                 "size": 894665,
                 "fileName": "photo-107.jpg",

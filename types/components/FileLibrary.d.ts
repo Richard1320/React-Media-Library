@@ -1,4 +1,5 @@
 export interface FileLibraryListItem {
+	_id: string | number;
 	title?: string;
 	size?: number;
 	createdAt?: Date;

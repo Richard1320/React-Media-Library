@@ -23,7 +23,7 @@ const FileLibraryCard: React.FC<IProps> = (props: IProps): JSX.Element => {
 	return (
 		<Card
 			onClick={() => props.cardClickCallback(props)}
-			bg={(props.selectedItem !== undefined && props.selectedItem.url === props.url) ? "primary" : undefined}
+			bg={(props.selectedItem !== undefined && props.selectedItem._id === props._id) ? "primary" : undefined}
 		>
 			{(props.thumbnailUrl) && (
 				<Card.Img variant="top" src={props.thumbnailUrl} style={imgStyle}/>
