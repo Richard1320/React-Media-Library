@@ -2,7 +2,7 @@ export interface FileLibraryListItem {
 	title?: string;
 	size?: number;
 	createdAt?: Date;
-	url: string;
+	thumbnailUrl?: string;
 	description?: string;
 	fileName?: string;
 	[key: string]: any;

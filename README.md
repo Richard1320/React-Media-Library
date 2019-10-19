@@ -34,11 +34,11 @@ fileDeleteCallback | function | N/A | See [fileDeleteCallback](#fileDeleteCallba
 
 ## Functions
 
-### fileUploadCallback
+## fileUploadCallback
 
 Async callback function when the user chooses a file to upload. This is used for both the drag-and-drop as well as the browser file select. The first argument is the file base64 as a string. The second argument contains the [FileMeta](#FileMeta) information. This promise should return true or false to let React Media Library know if the APIs successfully processed the file.
 
-```typescript jsx
+```
 import {FileMeta} from 'react-media-library';
 async function uploadCallback(fileBase64: string, fileMeta: FileMeta): Promise<boolean> {
     // Process the file data, send it to backend APIs, add it to the database, etc...
@@ -54,7 +54,7 @@ async function uploadCallback(fileBase64: string, fileMeta: FileMeta): Promise<b
 
 Callback function when the user selects a file from the library. Returns [FileLibraryListItem](#FileLibraryListItem) as the first argument.
 
-```typescript jsx
+```
 import {FileLibraryListItem} from 'react-media-library';
 function selectCallback(item: FileLibraryListItem) {
     // Use the file, put the file ID into your input field, etc
@@ -65,7 +65,7 @@ function selectCallback(item: FileLibraryListItem) {
 
 Optional callback function when the user chooses a file and clicks the delete button. Delete button will appear beside the select button in the library tab, or will be hidden if this prop is not set. Returns [FileLibraryListItem](#FileLibraryListItem) as the first argument.
  
-```typescript jsx
+```
 import {FileLibraryListItem} from 'react-media-library';
 function deleteCallback(item: FileLibraryListItem) {
     // Delete the data from your database
@@ -93,13 +93,13 @@ title | string (optional) | Displayed title on card in library tab.
 description | string (optional) | Displayed description on card in library tab.
 size | number (optional) | Displayed size on card in library tab.
 createdAt | Date (optional) | Displayed date on card in library tab.
-url | string | Direct URL to image.
+thumbnailUrl | string (optional) | URL for thumbnail to display image in library tab.
 fileName | string (optional) | Displayed filename on card in library tab.
 ??? | any | Any other properties you put in, you get back in the `fileSelectCallback` & `fileDeleteCallback` functions. 
 
 ## Example
 
-```typescript jsx
+```
 import React, {useEffect, useState} from 'react';
 import {FileLibraryListItem, ReactMediaLibrary, FileMeta} from 'react-media-library';
 
@@ -116,7 +116,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "fileName": "img_3549.jpg",
                 "type": "image/jpeg",
                 "createdAt": "2019-10-17T03:12:29.866Z",
-                "url": "https://mycustomcdn.com/mg_3549.jpg"
+                "thumbnailUrl": "https://mycustomcdn.com/mg_3549.jpg"
             },
             {
                 "title": "2019 Summer Vacation",
@@ -124,7 +124,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "fileName": "201702.jpg",
                 "type": "image/jpeg",
                 "createdAt": "2019-10-17T03:12:45.018Z",
-                "url": "https://mycustomcdn.com/201702.jpg"
+                "thumbnailUrl": "https://mycustomcdn.com/201702.jpg"
             },
             {
                 "title": "Our new baby",
@@ -132,7 +132,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "fileName": "271092.jpg",
                 "type": "image/jpeg",
                 "createdAt": "2019-10-17T03:19:33.498Z",
-                "url": "https://mycustomcdn.com/271092.jpg"
+                "thumbnailUrl": "https://mycustomcdn.com/271092.jpg"
             },
             {
                 "title": "My new car",
@@ -140,7 +140,7 @@ const ReactMediaLibraryWrapper: React.FC = () => {
                 "fileName": "photo-107.jpg",
                 "type": "image/jpeg",
                 "createdAt": "2019-10-17T03:28:39.723Z",
-                "url": "https://mycustomcdn.com/photo-107.jpg"
+                "thumbnailUrl": "https://mycustomcdn.com/photo-107.jpg"
             }
         ]);
 
