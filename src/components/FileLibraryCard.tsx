@@ -14,7 +14,6 @@ const imgStyle: React.CSSProperties = {
 };
 
 interface IProps extends FileLibraryListItem {
-	cardClickCallback: (item: FileLibraryListItem) => void;
 	selectedItem: FileLibraryListItem | undefined;
 }
 
@@ -22,7 +21,6 @@ const FileLibraryCard: React.FC<IProps> = (props: IProps): JSX.Element => {
 
 	return (
 		<Card
-			onClick={() => props.cardClickCallback(props)}
 			bg={(props.selectedItem !== undefined && props.selectedItem._id === props._id) ? "primary" : undefined}
 		>
 			{(props.thumbnailUrl) && (
