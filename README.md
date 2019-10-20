@@ -206,3 +206,9 @@ const ReactMediaLibraryWrapper: React.FC = () => {
 
 export default ReactMediaLibraryWrapper;
 ```
+
+## Screenshots
+
+![Upload Tab](docs/images/screenshot-upload.jpg)
+
+![Library Tab](docs/images/screenshot-library.jpg)
