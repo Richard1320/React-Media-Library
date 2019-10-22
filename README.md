@@ -6,6 +6,21 @@ But seriously, using a CMS like WordPress does provide a lot of useful features.
  
 Note: this only includes the UI; everybody's app is different so I can't write your API connections for you.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Component](#component)
+- [Props List](#props-list)
+- [Functions](#functions)
+    - [fileUploadCallback](#fileuploadcallback)
+    - [fileSelectCallback](#fileselectcallback)
+    - [fileDeleteCallback](#filedeletecallback)
+- [Interfaces](#interfaces)
+    - [FileMeta](#filemeta)
+    - [FileLibraryListItem](#FileLibraryListItem)
+- [Example](#example)
+- [Screenshots](#screenshots)
+
 ## Installation
 
 Install it via npm in your project.
