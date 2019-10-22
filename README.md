@@ -41,6 +41,7 @@ show | boolean | N/A (Required) | Shows and hides the modal. The on / off switch
 onHide | function | N/A (Required) | Callback function when the user clicks the close button. At the very least, this function should set the `show` prop to false.
 modalTitle | string | "Media Library" | Title text that appears at the top of the modal. 
 fileLibraryList | array | `[]` | Array of files to display in the library tab. Each item in the array has to be of type [FileLibraryListItem](#filelibrarylistitem).
+libraryCardComponent | React.FC | [FileLibraryCard](src/components/FileLibraryCard.tsx) | Custom rendering component for the card in the library tab. See [FileLibraryCard](src/components/FileLibraryCard.tsx) as an example.
 sortProperty | "title", "createdAt", "size" or "fileName" | "createdAt" | Sorting property for files in the library.
 sortAscending | boolean | false | Sort direction
 fileUploadCallback | function | N/A (Required) | See [fileUploadCallback](#fileuploadcallback)  
