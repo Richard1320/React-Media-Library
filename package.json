@@ -1,7 +1,8 @@
 {
   "name": "react-media-library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Media Library is a UI package similar to the WordPress media library, but for React. It features file drag-and-drop as well as a library to select previously uploaded files.",
+  "homepage": "https://github.com/Richard1320/React-Media-Library#readme",
   "main": "build/index.js",
   "types": "types/index.d.ts",
   "repository": {
@@ -24,7 +25,7 @@
     "build": "rm -rf build && tsc",
     "test": "ts-mocha ./test/**/*"
   },
-  "author": "",
+  "author": "Richard Hung <richardhung111@gmail.com> (http://www.magicmediamuse.com)",
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.2",
@@ -52,5 +53,9 @@
   "peerDependencies": {
     "react": "^16.X.X",
     "react-dom": "^16.X.X"
+  },
+  "bugs": {
+    "url": "https://github.com/Richard1320/React-Media-Library/issues",
+    "email": "richardhung111@gmail.com"
   }
 }
