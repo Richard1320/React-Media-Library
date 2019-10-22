@@ -6,7 +6,7 @@ const ReactMediaLibrary = (props) => {
         React.createElement(Modal.Header, { closeButton: true },
             React.createElement(Modal.Title, null, props.modalTitle)),
         React.createElement(Modal.Body, null,
-            React.createElement(ReactMediaLibraryTabs, { fileLibraryList: props.fileLibraryList, fileUploadCallback: props.fileUploadCallback, fileSelectCallback: props.fileSelectCallback, fileDeleteCallback: props.fileDeleteCallback }))));
+            React.createElement(ReactMediaLibraryTabs, { fileLibraryList: props.fileLibraryList, fileUploadCallback: props.fileUploadCallback, fileSelectCallback: props.fileSelectCallback, fileDeleteCallback: props.fileDeleteCallback, libraryCardComponent: props.libraryCardComponent }))));
 };
 ReactMediaLibrary.defaultProps = {
     modalTitle: "Media Library",

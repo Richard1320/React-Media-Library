@@ -9,7 +9,7 @@ const ReactMediaLibraryTabs = (props) => {
             React.createElement("div", { className: "pt-3" },
                 React.createElement(FileUpload, { fileUploadCallback: props.fileUploadCallback }))),
         (props.fileLibraryList.length > 0) && (React.createElement(Tab, { eventKey: "library", title: "Library" },
-            React.createElement(FileLibrary, { fileLibraryList: props.fileLibraryList, fileSelectCallback: props.fileSelectCallback, fileDeleteCallback: props.fileDeleteCallback })))));
+            React.createElement(FileLibrary, { fileLibraryList: props.fileLibraryList, fileSelectCallback: props.fileSelectCallback, fileDeleteCallback: props.fileDeleteCallback, libraryCardComponent: props.libraryCardComponent })))));
 };
 export default ReactMediaLibraryTabs;
 //# sourceMappingURL=ReactMediaLibraryTabs.js.map

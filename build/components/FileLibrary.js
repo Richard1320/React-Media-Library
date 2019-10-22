@@ -43,8 +43,7 @@ const FileLibrary = (props) => {
             .sort(sortArray)
             .slice(arrayStart, arrayEnd)
             .map((element, index) => {
-            return (React.createElement(Col, { key: index, xs: 12, sm: 6, md: 4, lg: 3, className: "mb-3" },
-                React.createElement(FileLibraryCard, Object.assign({ cardClickCallback: (item) => setSelectedItem(item), selectedItem: selectedItem }, element))));
+            return (React.createElement(Col, { key: index, xs: 12, sm: 6, md: 4, lg: 3, className: "mb-3", onClick: () => setSelectedItem(element) }, React.createElement(props.libraryCardComponent, Object.assign({ selectedItem }, element))));
         });
     }
     const submitRow = (selectedItem && (React.createElement(Row, null,
@@ -65,6 +64,7 @@ const FileLibrary = (props) => {
 FileLibrary.defaultProps = {
     sortProperty: "createdAt",
     sortAscending: false,
+    libraryCardComponent: FileLibraryCard,
 };
 export default FileLibrary;
 //# sourceMappingURL=FileLibrary.js.map

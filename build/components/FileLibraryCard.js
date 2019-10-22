@@ -11,7 +11,7 @@ const imgStyle = {
     objectPosition: "50% 50%",
 };
 const FileLibraryCard = (props) => {
-    return (React.createElement(Card, { onClick: () => props.cardClickCallback(props), bg: (props.selectedItem !== undefined && props.selectedItem._id === props._id) ? "primary" : undefined },
+    return (React.createElement(Card, { bg: (props.selectedItem !== undefined && props.selectedItem._id === props._id) ? "primary" : undefined },
         (props.thumbnailUrl) && (React.createElement(Card.Img, { variant: "top", src: props.thumbnailUrl, style: imgStyle })),
         (props.title || props.description) && (React.createElement(Card.Body, null,
             React.createElement(Card.Title, null, props.title),
