@@ -49,10 +49,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 			.map((element: FileLibraryListItem, index: number) => {
 				return (
 					<Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3" onClick={() => setSelectedItem(element)}>
-						<FileLibraryCard
-							selectedItem={selectedItem}
-							{...element}
-						/>
+						{React.createElement(props.libraryCardComponent as React.FC<FileLibraryListItem>, {selectedItem, ...element})}
 					</Col>
 				);
 			});
@@ -109,6 +106,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 FileLibrary.defaultProps = {
 	sortProperty: "createdAt",
 	sortAscending: false,
+	libraryCardComponent: FileLibraryCard,
 };
 
 export default FileLibrary;

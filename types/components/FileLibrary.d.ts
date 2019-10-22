@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface FileLibraryListItem {
 	_id: string | number;
 	title?: string;
@@ -6,6 +8,7 @@ export interface FileLibraryListItem {
 	thumbnailUrl?: string;
 	description?: string;
 	fileName?: string;
+
 	[key: string]: any;
 }
 
@@ -15,4 +18,5 @@ export interface FileLibraryProps {
 	sortAscending?: boolean;
 	fileSelectCallback: (item: FileLibraryListItem) => void;
 	fileDeleteCallback?: (item: FileLibraryListItem) => void;
+	libraryCardComponent?: React.FC<any>;
 }
