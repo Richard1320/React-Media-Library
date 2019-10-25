@@ -43,7 +43,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): JSX.E
 			arrayEnd = props.fileLibraryList.length;
 		}
 
-		return props.fileLibraryList
+		return [...props.fileLibraryList]
 			.sort(sortArray)
 			.slice(arrayStart, arrayEnd)
 			.map((element: FileLibraryListItem, index: number) => {
