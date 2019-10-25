@@ -39,7 +39,7 @@ const FileLibrary = (props) => {
             // Set calculated end as length of array
             arrayEnd = props.fileLibraryList.length;
         }
-        return props.fileLibraryList
+        return [...props.fileLibraryList]
             .sort(sortArray)
             .slice(arrayStart, arrayEnd)
             .map((element, index) => {
