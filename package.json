@@ -51,8 +51,8 @@
     "react-dropzone": "^10.1.9"
   },
   "peerDependencies": {
-    "react": "^16.X.X",
-    "react-dom": "^16.X.X"
+    "react": "^17.X.X",
+    "react-dom": "^17.X.X"
   },
   "bugs": {
     "url": "https://github.com/Richard1320/React-Media-Library/issues",
