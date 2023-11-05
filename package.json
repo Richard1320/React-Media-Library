@@ -1,10 +1,18 @@
 {
   "name": "react-media-library",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "React Media Library is a UI package similar to the WordPress media library, but for React. It features file drag-and-drop as well as a library to select previously uploaded files.",
   "homepage": "https://github.com/Richard1320/React-Media-Library#readme",
-  "main": "build/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "types/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf ./dist && rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Richard1320/React-Media-Library.git"
@@ -19,40 +27,50 @@
     "file-manager",
     "file-manager-ui"
   ],
-  "scripts": {
-    "dev": "tsc -w",
-    "prepare": "npm run build",
-    "build": "rm -rf build && tsc",
-    "test": "ts-mocha ./test/**/*"
-  },
-  "author": "Richard Hung <richardhung111@gmail.com> (http://www.magicmediamuse.com)",
+  "author": "Richard Hung <richardhung111@gmail.com> (https://www.magicmediamuse.com)",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.2.2",
-    "@types/enzyme": "^3.10.3",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/expect": "^1.20.4",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.6.8",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "chai": "^4.2.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "jsdom": "^15.1.1",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^6.2.0",
-    "ts-mocha": "^6.0.0",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.1"
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.2",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@storybook/addon-essentials": "7.5.2",
+    "@storybook/addon-interactions": "7.5.2",
+    "@storybook/addon-links": "7.5.2",
+    "@storybook/blocks": "7.5.2",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "7.5.2",
+    "@storybook/react-webpack5": "7.5.2",
+    "@storybook/testing-library": "0.2.2",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.7",
+    "@types/react": "^18.2.34",
+    "@types/styled-components": "^5.1.29",
+    "css-loader": "^6.8.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "node-sass": "^9.0.0",
+    "postcss": "^8.4.31",
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "rollup": "^4.3.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass-loader": "^13.3.2",
+    "storybook": "7.5.2",
+    "style-loader": "^3.3.3",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "react-bootstrap": "^1.0.0-beta.12",
-    "react-dropzone": "^10.1.9"
+    "react-dropzone": "^14.2.3"
   },
   "peerDependencies": {
-    "react": "^16.X.X",
-    "react-dom": "^16.X.X"
+    "react": ">= 16.X.X",
+    "react-dom": ">= 16.X.X"
   },
   "bugs": {
     "url": "https://github.com/Richard1320/React-Media-Library/issues",
