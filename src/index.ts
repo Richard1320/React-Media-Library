@@ -1,5 +1,2 @@
-import ReactMediaLibrary from "./components/ReactMediaLibrary";
-
-export {
-	ReactMediaLibrary
-}
+import "./styles/index.scss";
+export * from "./components";

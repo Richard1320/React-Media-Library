@@ -1,0 +1,274 @@
+@import "variables";
+@import "breakpoints";
+
+.react-media-library {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+  transition: opacity 0.3s;
+  background-color: rgba($gray-900, 0.8);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  button {
+    cursor: pointer;
+  }
+  .icon-checkmark,
+  .icon-success {
+    &:before {
+      content: '\2713';
+      display: inline-block;
+    }
+  }
+
+  .icon-processing {
+    &:before {
+      display: inline-block;
+      content: "\2026";
+    }
+  }
+
+  .icon-close,
+  .icon-failed {
+    &:before {
+      display: inline-block;
+      content: "\2715";
+    }
+  }
+
+  &__modal {
+    color: $black;
+    background-color: $white;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+      border-radius: 0.5rem;
+      width: 80%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 60rem;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid $gray-200;
+
+      &__title {
+        margin: 0;
+      }
+
+      &__close {
+        button {
+          border: 0;
+          background: none;
+        }
+      }
+    }
+  }
+
+  &__tabs {
+    margin-bottom: 1rem;
+
+    &__header {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid $gray-200;
+      padding: 0 1rem;
+      margin: 1rem 0;
+
+      &__item {
+
+        button {
+          border-top: 1px solid $gray-200;
+          border-left: 1px solid $gray-200;
+          border-right: 1px solid $gray-200;
+          border-bottom: 0;
+          border-top-left-radius: 0.5rem;
+          border-top-right-radius: 0.5rem;
+          padding: 1rem;
+        }
+
+        &.is-active {
+          button {
+            background-color: $primary;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  &__file-library {
+    &__empty {
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    &__list {
+      list-style: none;
+      margin: 0;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-height: calc(80vh - 15rem);
+      overflow: auto;
+
+      &__item {
+        cursor: pointer;
+
+        @include media-breakpoint-up(md) {
+          width: calc(50% - (1rem / 2));
+        }
+        @include media-breakpoint-up(lg) {
+          width: calc(33.33% - (2rem / 3));
+        }
+      }
+    }
+
+    &__actions {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      &__select {
+        background-color: $primary;
+        color: $white;
+        border: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+
+      &__delete {
+        background-color: $danger;
+        color: $white;
+        border: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  &__file-library-card {
+    border: 2px solid $gray-200;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    .is-selected & {
+      border-color: $primary;
+    }
+
+    &__image {
+      width: 100%;
+      height: 10rem;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    &__title {
+      padding: 0.5rem 1rem;
+      margin: 0;
+      border-bottom: 1px solid $gray-200;
+    }
+
+    &__description {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid $gray-200;
+    }
+
+    &__list {
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  &__file-library-pager {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+      border: 1px solid $gray-400;
+      padding: 0.5rem 0.75rem;
+      margin-left: -1px;
+
+      &:first-child {
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+
+      &.is-active {
+        background-color: $primary;
+        color: $white;
+      }
+    }
+  }
+
+  &__file-upload {
+    margin: 0 1rem;
+    padding: 3rem;
+    text-align: center;
+    border: 2px dashed $gray-400;
+    border-radius: 1rem;
+
+    &.is-drag-active {
+      border-color: $success;
+    }
+  }
+
+  &__file-upload-result {
+    padding: 0 1rem;
+
+    h3 {
+      text-align: center;
+    }
+    &__list {
+      list-style: none;
+      padding: 0;
+      max-width: 30rem;
+      border: 1px solid $gray-400;
+      border-radius: 0.5rem;
+      margin: 0 auto;
+
+      &__item {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        border-bottom: 1px solid $gray-400;
+        padding: 0.5rem 1rem;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+        &.status-failed {
+          color: $danger;
+        }
+        &.status-success {
+          color: $success;
+        }
+
+        &__filename {
+          flex: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

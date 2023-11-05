@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {FileMeta, FileUploadProps} from "../../types";
-import {FileUploadListItem} from "../../types/components/FileUpload";
-import FileUploadList from "./FileUploadList";
+import FileUploadResult, {FileUploadStatus} from "../FileUploadResult/FileUploadResult";
+import {FileMeta, FileUploadListItem, FileUploadProps} from "../../../types";
 
 function readFile(file: File): Promise<string> {
 	const fileReader = new FileReader();
@@ -20,12 +19,13 @@ function readFile(file: File): Promise<string> {
 	});
 }
 
-const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Element => {
+const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): ReactElement => {
 	const [fileUploadList, setFileUploadList] = useState<FileUploadListItem[]>([]);
+	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
 	function onDrop(acceptedFiles: File[]) {
 		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
-			return {fileName: element.name, status: 0};
+			return {fileName: element.name, status: FileUploadStatus.PROCESSING};
 		}).concat(fileUploadList);
 		setFileUploadList(newFileUploadList);
 
@@ -36,25 +36,27 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): JSX.Elem
 				const fileMeta: FileMeta = {fileName: file.name, type: file.type, size: file.size};
 				const result: boolean = await props.fileUploadCallback(fileBase64, fileMeta);
 				newFileUploadList = [...newFileUploadList];
-				newFileUploadList[index].status = (result) ? 1 : -1;
+				newFileUploadList[index].status = (result) ? FileUploadStatus.SUCCESS : FileUploadStatus.FAILED;
 				setFileUploadList(newFileUploadList);
 			})();
 		});
 	}
-	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
 	return (
 		<React.Fragment>
 			<div
-				className={`p-5 text-center alert alert-${isDragActive ? "success" : "secondary"}`}
+				className={`react-media-library__file-upload ${(isDragActive) && "is-drag-active"}`}
 				{...getRootProps()}
 			>
 				<input {...getInputProps()} />
 				{isDragActive ?
-					<p className="m-0">Drop the files here ...</p> :
-					<p className="m-0">Drag 'n' drop some files here, or click to select files</p>
+					<p>Drop the files here ...</p> :
+					<p>Drag 'n' drop some files here, or click to select files</p>
 				}
 			</div>
-			<FileUploadList fileUploadList={fileUploadList}/>
+			{(fileUploadList.length > 0) && (
+				<FileUploadResult fileUploadList={fileUploadList}/>
+			)}
 		</React.Fragment>
 	)
 };

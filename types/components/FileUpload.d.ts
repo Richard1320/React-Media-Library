@@ -1,3 +1,5 @@
+import {FileUploadStatus} from "../../src/components/FileUploadResult/FileUploadResult";
+
 export interface FileMeta {
 	fileName: string;
 	type: string;
@@ -10,5 +12,5 @@ export interface FileUploadProps {
 
 export interface FileUploadListItem {
 	fileName: string;
-	status: number;
+	status: FileUploadStatus;
 }
