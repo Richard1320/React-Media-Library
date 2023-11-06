@@ -1,45 +1,30 @@
 import React, {ReactElement, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import FileUploadResult, {FileUploadStatus} from "../FileUploadResult/FileUploadResult";
-import {FileMeta, FileUploadListItem, FileUploadProps} from "../../../types";
-
-function readFile(file: File): Promise<string> {
-	const fileReader = new FileReader();
-
-	return new Promise((resolve, reject) => {
-		fileReader.onerror = () => {
-			fileReader.abort();
-			reject(new DOMException("Problem parsing input file."));
-		};
-
-		fileReader.onload = () => {
-			resolve(fileReader.result as string);
-		};
-		fileReader.readAsDataURL(file);
-	});
-}
+import {FileUploadListItem, FileUploadProps} from "../../../types";
 
 const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): ReactElement => {
-	const [fileUploadList, setFileUploadList] = useState<FileUploadListItem[]>([]);
+	const [fileUploadList, setFileUploadList] = useState<Array<FileUploadListItem>>([]);
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
-	function onDrop(acceptedFiles: File[]) {
+	async function onDrop(acceptedFiles: Array<File>): Promise<void> {
+		// Prepend uploaded file list with new upload items
 		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
-			return {fileName: element.name, status: FileUploadStatus.PROCESSING};
+			return {
+				fileName: element.name,
+				status: FileUploadStatus.PROCESSING,
+			};
 		}).concat(fileUploadList);
 		setFileUploadList(newFileUploadList);
 
-		// Loop through dropped files
-		acceptedFiles.forEach((file: File, index: number) => {
-			(async () => {
-				const fileBase64 = await readFile(file);
-				const fileMeta: FileMeta = {fileName: file.name, type: file.type, size: file.size};
-				const result: boolean = await props.fileUploadCallback(fileBase64, fileMeta);
-				newFileUploadList = [...newFileUploadList];
-				newFileUploadList[index].status = (result) ? FileUploadStatus.SUCCESS : FileUploadStatus.FAILED;
-				setFileUploadList(newFileUploadList);
-			})();
-		});
+		// Loop through new upload items
+		for (const index in acceptedFiles) {
+			const file = acceptedFiles[index];
+			const result: boolean = await props.fileUploadCallback(file);
+			newFileUploadList = [...newFileUploadList];
+			newFileUploadList[index].status = (result) ? FileUploadStatus.SUCCESS : FileUploadStatus.FAILED;
+			setFileUploadList(newFileUploadList);
+		}
 	}
 
 	return (

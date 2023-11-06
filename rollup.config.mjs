@@ -29,6 +29,7 @@ export default [
       postcss({
         extensions: ['.scss'],
         inject: true,
+        minimize: true,
       }),
     ],
     external: [...Object.keys(packageJson.peerDependencies || {})],
