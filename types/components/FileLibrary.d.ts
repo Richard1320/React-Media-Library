@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactElement} from "react";
 
 export interface FileLibraryListItem {
 	_id: string | number;
@@ -16,7 +16,7 @@ export type FileLibraryProps = {
 	fileLibraryList: Array<FileLibraryListItem>;
 	sortProperty?: "title" | "createdAt" | "size" | "fileName";
 	sortAscending?: boolean;
-	libraryCardComponent?: React.FC<any>;
+	libraryCardComponent?: (item: FileLibraryListItem, isSelected?: boolean) => ReactElement;
 } & ({
 	fileSelectCallback: (item: FileLibraryListItem) => void;
 	fileDeleteCallback?: (item: FileLibraryListItem) => void;

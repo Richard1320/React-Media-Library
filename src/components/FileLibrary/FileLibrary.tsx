@@ -68,7 +68,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 						className={`react-media-library__file-library__list__item ${(isSelected) && "is-selected"}`}
 						onClick={() => onSelect(element)}
 					>
-						{React.createElement(props.libraryCardComponent as React.FC<FileLibraryListItem>, {isSelected, ...element})}
+						{props.libraryCardComponent?.(element, isSelected)}
 					</li>
 				);
 			});
@@ -144,7 +144,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 FileLibrary.defaultProps = {
 	sortProperty: "createdAt",
 	sortAscending: false,
-	libraryCardComponent: FileLibraryCard,
+	libraryCardComponent: (item, isSelected) => (<FileLibraryCard isSelected={isSelected} {...item} />),
 };
 
 export default FileLibrary;

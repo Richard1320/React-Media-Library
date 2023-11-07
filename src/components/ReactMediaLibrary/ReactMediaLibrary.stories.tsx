@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Meta, StoryObj} from "@storybook/react";
 import ReactMediaLibrary from "./ReactMediaLibrary";
 import {FileLibraryListItem,  ReactMediaLibraryProps} from "../../../types";
@@ -74,5 +74,31 @@ MultiSelect.args = {
 	multiSelect: true,
 	multiSelectCallback: (items) => alert(`Select items ${items.map(i => i._id).join(", ")}`),
 	multiDeleteCallback: (items) => alert(`Delete items ${items.map(i => i._id).join(", ")}`),
+};
+
+interface CustomLibraryCardProps extends FileLibraryListItem  {isSelected?: boolean}
+const CustomLibraryCard: React.FC<CustomLibraryCardProps> = (props: CustomLibraryCardProps): ReactElement => (
+	<div
+		style={{
+			backgroundColor: (props.isSelected) ? "skyblue" : "white",
+		}}
+	>
+		<h5>
+			{props.title}
+		</h5>
+		<p>
+			This is custom content for {props.fileName} that I wish to display.
+		</p>
+	</div>
+);
+
+export const CustomCard: Story = (args: ReactMediaLibraryProps) => (
+	<ReactMediaLibrary
+		{...args}
+	/>
+);
+CustomCard.args = {
+	...primaryArgs,
+	libraryCardComponent: (item, isSelected) => (<CustomLibraryCard isSelected={isSelected} {...item} />),
 };
 
