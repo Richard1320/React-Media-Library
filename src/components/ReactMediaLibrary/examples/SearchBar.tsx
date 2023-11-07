@@ -4,14 +4,6 @@ import React, {ChangeEvent, Dispatch, ReactElement, SetStateAction, useState} fr
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
 import {storiesDefaultFileLibraryList} from "./_storiesDefaultFileLibraryList";
 
-export const Standard: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => (
-	<ReactMediaLibrary
-		{...args}
-	/>
-);
-Standard.args = {
-	...storiesDefaultPrimaryArgs,
-};
 interface FileLibraryTopBarProps {
 	searchValue: string;
 	setSearchValue: Dispatch<SetStateAction<string>>;
@@ -52,7 +44,7 @@ export const SearchBar: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) 
 	);
 
 	function filterItem(item: FileLibraryListItem): boolean {
-		return item.title?.includes(searchValue) || false;
+		return item.title?.includes(searchValue) || item.fileName?.includes(searchValue) || false;
 	}
 
 	return (

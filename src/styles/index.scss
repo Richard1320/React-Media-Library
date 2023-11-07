@@ -16,6 +16,10 @@
 
   button {
     cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   .icon-checkmark,
   .icon-success {
@@ -47,10 +51,10 @@
 
     @include media-breakpoint-up(md) {
       border-radius: 0.5rem;
-      width: 80%;
+      width: 90%;
     }
-    @include media-breakpoint-up(lg) {
-      max-width: 60rem;
+    @include media-breakpoint-up(xl) {
+      max-width: 80rem;
     }
 
     &__header {
@@ -197,17 +201,17 @@
     display: flex;
     justify-content: center;
 
-    button {
+    &__item {
       border: 1px solid $gray-400;
       padding: 0.5rem 0.75rem;
       margin-left: -1px;
 
-      &:first-child {
+      &.is-first {
         border-top-left-radius: 0.5rem;
         border-bottom-left-radius: 0.5rem;
       }
 
-      &:last-child {
+     &.is-last {
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
       }
