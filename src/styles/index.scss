@@ -213,6 +213,7 @@
       }
 
       &.is-active {
+        border-color: $primary;
         background-color: $primary;
         color: $white;
       }

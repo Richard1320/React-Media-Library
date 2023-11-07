@@ -4,7 +4,7 @@ export interface FileLibraryListItem {
 	_id: string | number;
 	title?: string;
 	size?: number;
-	createdAt?: Date;
+	createdAt?: Date | number | string;
 	thumbnailUrl?: string;
 	description?: string;
 	fileName?: string;
