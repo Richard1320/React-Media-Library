@@ -1,17 +1,17 @@
-import React, {ReactElement, useState} from "react";
-import FileLibraryCard from "../FileLibraryCard/FileLibraryCard";
+import React, {ReactElement, useContext, useState} from "react";
 import FileLibraryPager from "../FileLibraryPager/FileLibraryPager";
-import {FileLibraryListItem, FileLibraryProps} from "../../../types";
+import {FileLibraryListItem} from "../../../types";
+import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
-const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): ReactElement => {
-
+const FileLibrary: React.FC = (): ReactElement => {
+	const reactMediaLibraryContext = useContext(ReactMediaLibraryContext);
 	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
 	const [page, setPage] = useState<number>(1);
 	const itemsPerPage = 12;
 
 	function sortArray(a: FileLibraryListItem, b: FileLibraryListItem): -1 | 0 | 1 {
 		try {
-			const property = props.sortProperty;
+			const property = reactMediaLibraryContext.sortProperty;
 			let valA: any = property !== undefined ? a[property] : 0;
 			let valB: any = property !== undefined ? b[property] : 0;
 
@@ -19,7 +19,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 			if (typeof valA === "string") valA = valA.toUpperCase();
 			if (typeof valB === "string") valB = valB.toUpperCase();
 
-			if (props.sortAscending) {
+			if (reactMediaLibraryContext.sortAscending) {
 				return (valA < valB) ? -1 : 1;
 			} else {
 				return (valA > valB) ? -1 : 1;
@@ -30,7 +30,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 	}
 
 	function onSelect(item: FileLibraryListItem) {
-		if (props.multiSelect) {
+		if (reactMediaLibraryContext.multiSelect) {
 			const newSelectedItems = [...selectedItems];
 			const foundIndex = newSelectedItems.findIndex((element) => element._id === item._id);
 			if (foundIndex > -1) {
@@ -47,17 +47,17 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 	}
 
 	function renderList(): ReactElement[] {
-		if (!props.fileLibraryList) return [];
+		if (!reactMediaLibraryContext.fileLibraryList) return [];
 
 		const arrayStart = (page - 1) * itemsPerPage;
 		let arrayEnd = arrayStart + itemsPerPage;
-		if (arrayEnd > props.fileLibraryList.length) {
+		if (arrayEnd > reactMediaLibraryContext.fileLibraryList.length) {
 			// If calculated end extends past length of actual array
 			// Set calculated end as length of array
-			arrayEnd = props.fileLibraryList.length;
+			arrayEnd = reactMediaLibraryContext.fileLibraryList.length;
 		}
 
-		return [...props.fileLibraryList]
+		return [...reactMediaLibraryContext.fileLibraryList]
 			.sort(sortArray)
 			.slice(arrayStart, arrayEnd)
 			.map((element: FileLibraryListItem, index: number) => {
@@ -68,7 +68,7 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 						className={`react-media-library__file-library__list__item ${(isSelected) && "is-selected"}`}
 						onClick={() => onSelect(element)}
 					>
-						{props.libraryCardComponent?.(element, isSelected)}
+						{reactMediaLibraryContext.libraryCardComponent?.(element, isSelected)}
 					</li>
 				);
 			});
@@ -77,13 +77,13 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 	return (
 		<div className="react-media-library__file-library">
 
-			{(props.topBarComponent) && (
+			{(reactMediaLibraryContext.topBarComponent) && (
 				<div className="react-media-library__file-library__top-bar">
-					{props.topBarComponent()}
+					{reactMediaLibraryContext.topBarComponent()}
 				</div>
 			)}
 
-			{(props.fileLibraryList?.length) ? (
+			{(reactMediaLibraryContext.fileLibraryList?.length) ? (
 				<ul className="react-media-library__file-library__list">
 					{renderList()}
 				</ul>
@@ -93,9 +93,9 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 				</p>
 			)}
 
-			{(props.fileLibraryList?.length > itemsPerPage) && (
+			{(reactMediaLibraryContext.fileLibraryList?.length > itemsPerPage) && (
 				<FileLibraryPager
-					count={props.fileLibraryList.length}
+					count={reactMediaLibraryContext.fileLibraryList.length}
 					page={page}
 					pagerCallback={(number: number) => setPage(number)}
 					itemsPerPage={itemsPerPage}
@@ -104,18 +104,18 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 
 			{(selectedItems.length > 0) && (
 				<div className="react-media-library__file-library__actions">
-					{(props.multiSelect) ? (
+					{(reactMediaLibraryContext.multiSelect) ? (
 						<React.Fragment>
 							<button
 								className="react-media-library__file-library__actions__select"
-								onClick={() => props.multiSelectCallback(selectedItems)}
+								onClick={() => reactMediaLibraryContext.multiSelectCallback(selectedItems)}
 							>
 								Select {selectedItems.length} Files
 							</button>
-							{(props.multiDeleteCallback !== undefined) && (
+							{(reactMediaLibraryContext.multiDeleteCallback !== undefined) && (
 								<button
 									className="react-media-library__file-library__actions__delete"
-									onClick={() => props.multiDeleteCallback?.(selectedItems)}
+									onClick={() => reactMediaLibraryContext.multiDeleteCallback?.(selectedItems)}
 								>
 									Delete {selectedItems.length} Files
 								</button>
@@ -125,14 +125,14 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 						<React.Fragment>
 							<button
 								className="react-media-library__file-library__actions__select"
-								onClick={() => props.fileSelectCallback(selectedItems[0])}
+								onClick={() => reactMediaLibraryContext.fileSelectCallback(selectedItems[0])}
 							>
 								Select File
 							</button>
-							{(props.fileDeleteCallback !== undefined) && (
+							{(reactMediaLibraryContext.fileDeleteCallback !== undefined) && (
 								<button
 									className="react-media-library__file-library__actions__delete"
-									onClick={() => props.fileDeleteCallback?.(selectedItems[0])}
+									onClick={() => reactMediaLibraryContext.fileDeleteCallback?.(selectedItems[0])}
 								>
 									Delete File
 								</button>
@@ -145,12 +145,6 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 
 		</div>
 	);
-};
-
-FileLibrary.defaultProps = {
-	sortProperty: "createdAt",
-	sortAscending: false,
-	libraryCardComponent: (item, isSelected) => (<FileLibraryCard isSelected={isSelected} {...item} />),
 };
 
 export default FileLibrary;

@@ -1,10 +1,11 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useContext, useState} from "react";
 import FileUpload from "../FileUpload/FileUpload";
 import FileLibrary from "../FileLibrary/FileLibrary";
-import {ReactMediaLibraryTabsProps} from "../../../types";
+import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
-const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: ReactMediaLibraryTabsProps): ReactElement => {
-	const [currentTab, setCurrentTab] = useState<"upload"|"browse">((props.fileLibraryList?.length > 0) ? "browse": "upload");
+const ReactMediaLibraryTabs: React.FC = (): ReactElement => {
+	const {fileLibraryList} = useContext(ReactMediaLibraryContext);
+	const [currentTab, setCurrentTab] = useState<"upload"|"browse">((fileLibraryList?.length > 0) ? "browse": "upload");
 
 	return (
 		<div className="react-media-library__tabs">
@@ -26,23 +27,12 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 		</div>
 			{(currentTab === "browse") ? (
 				<div className="react-media-library__tabs__item">
-					<FileLibrary
-						multiSelect={props.multiSelect}
-						fileLibraryList={props.fileLibraryList}
-						multiSelectCallback={(props.multiSelect) ? props.multiSelectCallback : () => {}}
-						multiDeleteCallback={(props.multiSelect) ? props.multiDeleteCallback : undefined}
-						fileSelectCallback={(!props.multiSelect) ? props.fileSelectCallback : () => {}}
-						fileDeleteCallback={(!props.multiSelect) ? props.fileDeleteCallback : undefined}
-						libraryCardComponent={props.libraryCardComponent}
-						topBarComponent={props.topBarComponent}
-					/>
+					<FileLibrary />
 				</div>
 			) : (
 				<div className="react-media-library__tabs__item">
 					<div>
-						<FileUpload
-							fileUploadCallback={props.fileUploadCallback}
-						/>
+						<FileUpload />
 					</div>
 				</div>
 			)}

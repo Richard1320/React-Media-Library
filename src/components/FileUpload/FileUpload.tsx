@@ -1,9 +1,11 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useContext, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import FileUploadResult, {FileUploadStatus} from "../FileUploadResult/FileUploadResult";
-import {FileUploadListItem, FileUploadProps} from "../../../types";
+import {FileUploadListItem} from "../../../types";
+import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
-const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): ReactElement => {
+const FileUpload: React.FC = (): ReactElement => {
+	const {fileUploadCallback} = useContext(ReactMediaLibraryContext);
 	const [fileUploadList, setFileUploadList] = useState<Array<FileUploadListItem>>([]);
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
@@ -20,7 +22,7 @@ const FileUpload: React.FC<FileUploadProps> = (props: FileUploadProps): ReactEle
 		// Loop through new upload items
 		for (const index in acceptedFiles) {
 			const file = acceptedFiles[index];
-			const result: boolean = await props.fileUploadCallback(file);
+			const result: boolean = await fileUploadCallback(file);
 			newFileUploadList = [...newFileUploadList];
 			newFileUploadList[index].status = (result) ? FileUploadStatus.SUCCESS : FileUploadStatus.FAILED;
 			setFileUploadList(newFileUploadList);
