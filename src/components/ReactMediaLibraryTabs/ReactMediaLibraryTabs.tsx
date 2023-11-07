@@ -34,6 +34,7 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 						fileSelectCallback={(!props.multiSelect) ? props.fileSelectCallback : () => {}}
 						fileDeleteCallback={(!props.multiSelect) ? props.fileDeleteCallback : undefined}
 						libraryCardComponent={props.libraryCardComponent}
+						topBarComponent={props.topBarComponent}
 					/>
 				</div>
 			) : (

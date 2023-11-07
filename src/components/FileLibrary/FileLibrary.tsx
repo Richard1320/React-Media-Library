@@ -77,6 +77,12 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 	return (
 		<div className="react-media-library__file-library">
 
+			{(props.topBarComponent) && (
+				<div className="react-media-library__file-library__top-bar">
+					{props.topBarComponent()}
+				</div>
+			)}
+
 			{(props.fileLibraryList?.length) ? (
 				<ul className="react-media-library__file-library__list">
 					{renderList()}

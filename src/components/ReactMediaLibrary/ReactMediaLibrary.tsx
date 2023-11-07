@@ -42,6 +42,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 						fileSelectCallback={(!props.multiSelect) ? props.fileSelectCallback : () => {}}
 						fileDeleteCallback={(!props.multiSelect) ? props.fileDeleteCallback : undefined}
 						libraryCardComponent={props.libraryCardComponent}
+						topBarComponent={props.topBarComponent}
 					/>
 				</div>
 			</div>
