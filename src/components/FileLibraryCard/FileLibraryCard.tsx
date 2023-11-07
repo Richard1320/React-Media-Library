@@ -4,7 +4,7 @@ import formatDate from "../../utils/formatDate";
 import {FileLibraryListItem} from "../../../types";
 
 interface IProps extends FileLibraryListItem {
-	selectedItem?: FileLibraryListItem;
+	isSelected?: boolean;
 }
 
 const FileLibraryCard: React.FC<IProps> = (props: IProps): ReactElement => {

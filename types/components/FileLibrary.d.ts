@@ -12,11 +12,17 @@ export interface FileLibraryListItem {
 	[key: string]: any;
 }
 
-export interface FileLibraryProps {
-	fileLibraryList: FileLibraryListItem[];
+export type FileLibraryProps = {
+	fileLibraryList: Array<FileLibraryListItem>;
 	sortProperty?: "title" | "createdAt" | "size" | "fileName";
 	sortAscending?: boolean;
+	libraryCardComponent?: React.FC<any>;
+} & ({
 	fileSelectCallback: (item: FileLibraryListItem) => void;
 	fileDeleteCallback?: (item: FileLibraryListItem) => void;
-	libraryCardComponent?: React.FC<any>;
-}
+	multiSelect?: false;
+} | {
+	multiSelectCallback: (items: Array<FileLibraryListItem>) => void;
+	multiDeleteCallback?: (items: Array<FileLibraryListItem>) => void;
+	multiSelect: true;
+})

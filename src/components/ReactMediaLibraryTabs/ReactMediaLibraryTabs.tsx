@@ -27,9 +27,12 @@ const ReactMediaLibraryTabs: React.FC<ReactMediaLibraryTabsProps> = (props: Reac
 			{(currentTab === "browse") ? (
 				<div className="react-media-library__tabs__item">
 					<FileLibrary
+						multiSelect={props.multiSelect}
 						fileLibraryList={props.fileLibraryList}
-						fileSelectCallback={props.fileSelectCallback}
-						fileDeleteCallback={props.fileDeleteCallback}
+						multiSelectCallback={(props.multiSelect) ? props.multiSelectCallback : () => {}}
+						multiDeleteCallback={(props.multiSelect) ? props.multiDeleteCallback : undefined}
+						fileSelectCallback={(!props.multiSelect) ? props.fileSelectCallback : () => {}}
+						fileDeleteCallback={(!props.multiSelect) ? props.fileDeleteCallback : undefined}
 						libraryCardComponent={props.libraryCardComponent}
 					/>
 				</div>

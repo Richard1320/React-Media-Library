@@ -34,10 +34,13 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 				</div>
 				<div className="react-media-library__modal__body">
 					<ReactMediaLibraryTabs
+						multiSelect={props.multiSelect}
 						fileLibraryList={props.fileLibraryList}
 						fileUploadCallback={props.fileUploadCallback}
-						fileSelectCallback={props.fileSelectCallback}
-						fileDeleteCallback={props.fileDeleteCallback}
+						multiSelectCallback={(props.multiSelect) ? props.multiSelectCallback : () => {}}
+						multiDeleteCallback={(props.multiSelect) ? props.multiDeleteCallback : undefined}
+						fileSelectCallback={(!props.multiSelect) ? props.fileSelectCallback : () => {}}
+						fileDeleteCallback={(!props.multiSelect) ? props.fileDeleteCallback : undefined}
 						libraryCardComponent={props.libraryCardComponent}
 					/>
 				</div>

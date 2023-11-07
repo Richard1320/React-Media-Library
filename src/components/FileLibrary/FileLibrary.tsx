@@ -5,7 +5,7 @@ import {FileLibraryListItem, FileLibraryProps} from "../../../types";
 
 const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): ReactElement => {
 
-	const [selectedItem, setSelectedItem] = useState<FileLibraryListItem | undefined>(undefined);
+	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
 	const [page, setPage] = useState<number>(1);
 	const itemsPerPage = 12;
 
@@ -29,6 +29,23 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 		}
 	}
 
+	function onSelect(item: FileLibraryListItem) {
+		if (props.multiSelect) {
+			const newSelectedItems = [...selectedItems];
+			const foundIndex = newSelectedItems.findIndex((element) => element._id === item._id);
+			if (foundIndex > -1) {
+				// Remove item from selected list if already exists
+				newSelectedItems.splice(foundIndex, 1);
+			} else {
+				// Add item to selected list if not exists
+				newSelectedItems.push(item);
+			}
+			setSelectedItems(newSelectedItems);
+		} else {
+			setSelectedItems([item]);
+		}
+	}
+
 	function renderList(): ReactElement[] {
 		if (!props.fileLibraryList) return [];
 
@@ -44,13 +61,14 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 			.sort(sortArray)
 			.slice(arrayStart, arrayEnd)
 			.map((element: FileLibraryListItem, index: number) => {
+				const isSelected: boolean = !!selectedItems.find((item) => item._id === element._id);
 				return (
 					<li
 						key={index}
-						className={`react-media-library__file-library__list__item ${(selectedItem?._id === element._id) && "is-selected"}`}
-						onClick={() => setSelectedItem(element)}
+						className={`react-media-library__file-library__list__item ${(isSelected) && "is-selected"}`}
+						onClick={() => onSelect(element)}
 					>
-						{React.createElement(props.libraryCardComponent as React.FC<FileLibraryListItem>, {selectedItem, ...element})}
+						{React.createElement(props.libraryCardComponent as React.FC<FileLibraryListItem>, {isSelected, ...element})}
 					</li>
 				);
 			});
@@ -78,22 +96,44 @@ const FileLibrary: React.FC<FileLibraryProps> = (props: FileLibraryProps): React
 				/>
 			)}
 
-			{(selectedItem) && (
+			{(selectedItems.length > 0) && (
 				<div className="react-media-library__file-library__actions">
-					<button
-						className="react-media-library__file-library__actions__select"
-						onClick={() => props.fileSelectCallback(selectedItem as FileLibraryListItem)}
-					>
-						Select File
-					</button>
-					{(props.fileDeleteCallback !== undefined) && (
-						<button
-							className="react-media-library__file-library__actions__delete"
-							onClick={() => props.fileDeleteCallback?.(selectedItem as FileLibraryListItem)}
-						>
-							Delete File
-						</button>
+					{(props.multiSelect) ? (
+						<React.Fragment>
+							<button
+								className="react-media-library__file-library__actions__select"
+								onClick={() => props.multiSelectCallback(selectedItems)}
+							>
+								Select {selectedItems.length} Files
+							</button>
+							{(props.multiDeleteCallback !== undefined) && (
+								<button
+									className="react-media-library__file-library__actions__delete"
+									onClick={() => props.multiDeleteCallback?.(selectedItems)}
+								>
+									Delete {selectedItems.length} Files
+								</button>
+							)}
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<button
+								className="react-media-library__file-library__actions__select"
+								onClick={() => props.fileSelectCallback(selectedItems[0])}
+							>
+								Select File
+							</button>
+							{(props.fileDeleteCallback !== undefined) && (
+								<button
+									className="react-media-library__file-library__actions__delete"
+									onClick={() => props.fileDeleteCallback?.(selectedItems[0])}
+								>
+									Delete File
+								</button>
+							)}
+						</React.Fragment>
 					)}
+
 				</div>
 			)}
 

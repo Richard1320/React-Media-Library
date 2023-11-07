@@ -25,6 +25,16 @@ const fileLibraryList: Array<FileLibraryListItem> = Array.from(Array(20).keys())
 	}
 });
 
+const primaryArgs: ReactMediaLibraryProps = {
+	multiSelect: false,
+	show: true,
+	onHide: () => alert("Hide React Media Library"),
+	fileUploadCallback: fileUploadCallback,
+	fileLibraryList: fileLibraryList,
+	fileSelectCallback: (item) => alert(`Select item ${item._id}`),
+	fileDeleteCallback: (item) => alert(`Delete item ${item._id}`),
+};
+
 async function fileUploadCallback(file: File): Promise<boolean> {
 	try {
 		const fileBase64 = await convertFileToBase64(file);
@@ -41,12 +51,7 @@ export const Primary: Story = (args: ReactMediaLibraryProps) => (
 	/>
 );
 Primary.args = {
-	show: true,
-	onHide: () => alert("Hide React Media Library"),
-	fileUploadCallback: fileUploadCallback,
-	fileLibraryList: fileLibraryList,
-	fileSelectCallback: (item) => alert(`Select item ${item._id}`),
-	fileDeleteCallback: (item) => alert(`Delete item ${item._id}`),
+	...primaryArgs,
 };
 
 export const Empty: Story = (args: ReactMediaLibraryProps) => (
@@ -55,11 +60,19 @@ export const Empty: Story = (args: ReactMediaLibraryProps) => (
 	/>
 );
 Empty.args = {
-	show: true,
-	onHide: () => alert("Hide React Media Library"),
-	fileUploadCallback: fileUploadCallback,
+	...primaryArgs,
 	fileLibraryList: [],
-	fileSelectCallback: (item) => alert(`Select item ${item._id}`),
-	fileDeleteCallback: (item) => alert(`Delete item ${item._id}`),
+};
+
+export const MultiSelect: Story = (args: ReactMediaLibraryProps) => (
+	<ReactMediaLibrary
+		{...args}
+	/>
+);
+MultiSelect.args = {
+	...primaryArgs,
+	multiSelect: true,
+	multiSelectCallback: (items) => alert(`Select items ${items.map(i => i._id).join(", ")}`),
+	multiDeleteCallback: (items) => alert(`Delete items ${items.map(i => i._id).join(", ")}`),
 };
 
