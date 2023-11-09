@@ -82,7 +82,7 @@ const FileLibrary: React.FC = (): ReactElement => {
 						className={`react-media-library__file-library__list__item ${(isSelected) && "is-selected"}`}
 						onClick={() => onSelect(element)}
 					>
-						{libraryCardComponent?.(element, isSelected)}
+						{libraryCardComponent?.(element)}
 					</li>
 				);
 			});

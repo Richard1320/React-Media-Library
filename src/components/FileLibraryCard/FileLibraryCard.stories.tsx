@@ -6,16 +6,22 @@ import {FileLibraryListItem} from "../../../types";
 const meta: Meta<typeof FileLibraryCard> = {
 	component: FileLibraryCard,
 	title: "React-Media-Library/FileLibraryCard",
-	argTypes: {},
+	tags: ["autodocs"],
 };
 export default meta;
 
 type Story = StoryObj<typeof FileLibraryCard>;
 
 export const Primary: Story = (args: FileLibraryListItem) => (
-	<FileLibraryCard
-		{...args}
-	/>
+	<div
+		style={{
+			width: "20rem",
+		}}
+	>
+		<FileLibraryCard
+			{...args}
+		/>
+	</div>
 );
 Primary.args = {
 	_id: "primary",

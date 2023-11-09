@@ -11,6 +11,4 @@ export const MultiSelect: ReactMediaLibraryStory = (args: ReactMediaLibraryProps
 MultiSelect.args = {
 	...storiesDefaultPrimaryArgs,
 	multiSelect: true,
-	multiSelectCallback: (items) => alert(`Select items ${items.map(i => i._id).join(", ")}`),
-	multiDeleteCallback: (items) => alert(`Delete items ${items.map(i => i._id).join(", ")}`),
 };

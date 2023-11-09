@@ -3,11 +3,15 @@ import {ReactMediaLibraryContextType} from "../../types";
 
 const reactMediaLibraryDefaultContext: ReactMediaLibraryContextType = {
 	fileLibraryList: [],
+	selectedItems: [],
+	setSelectedItems: () => {
+	},
 	fileUploadCallback: async () => false,
-	multiSelectCallback:  () => {},
-	fileSelectCallback: () => {},
+	filesSelectCallback: () => {
+	},
 	sortProperty: "createdAt",
 	sortAscending: false,
+	multiSelect: false,
 }
 
 export const ReactMediaLibraryContext = createContext<ReactMediaLibraryContextType>(reactMediaLibraryDefaultContext);

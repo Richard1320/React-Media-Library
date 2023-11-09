@@ -4,14 +4,14 @@ import {FileLibrarySelectedItemsCard} from "../FileLibrarySelectedItemsCard";
 import {FileLibrarySelectedItemsProps} from "../../../types";
 
 const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props: FileLibrarySelectedItemsProps): ReactElement => {
-	const reactMediaLibraryContext = useContext(ReactMediaLibraryContext);
+	const {selectedItems, filesSelectCallback, filesDeleteCallback} = useContext(ReactMediaLibraryContext);
 
 	return (
 		<div
 			className="react-media-library__file-library-selected-items"
 		>
 			<ul className="react-media-library__file-library-selected-items__list">
-				{reactMediaLibraryContext.selectedItems.map((item) => (
+				{selectedItems.map((item) => (
 					<li
 						key={`item-${item._id}`}
 						className="react-media-library__file-library-selected-items__list__item"
@@ -22,41 +22,20 @@ const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props
 			</ul>
 
 			<div className="react-media-library__file-library-selected-items__actions">
-				{(reactMediaLibraryContext.multiSelect) ? (
-					<React.Fragment>
-						<button
-							className="react-media-library__file-library-selected-items__actions__select"
-							onClick={() => reactMediaLibraryContext.multiSelectCallback(reactMediaLibraryContext.selectedItems)}
-						>
-							Select {reactMediaLibraryContext.selectedItems.length} Files
-						</button>
-						{(reactMediaLibraryContext.multiDeleteCallback !== undefined) && (
-							<button
-								className="react-media-library__file-library-selected-items__actions__delete"
-								onClick={() => reactMediaLibraryContext.multiDeleteCallback?.(reactMediaLibraryContext.selectedItems)}
-							>
-								Delete {reactMediaLibraryContext.selectedItems.length} Files
-							</button>
-						)}
-					</React.Fragment>
-				) : (
-					<React.Fragment>
-						<button
-							className="react-media-library__file-library-selected-items__actions__select"
-							onClick={() => reactMediaLibraryContext.fileSelectCallback(reactMediaLibraryContext.selectedItems[0])}
-						>
-							Select File
-						</button>
-						{(reactMediaLibraryContext.fileDeleteCallback !== undefined) && (
-							<button
-								className="react-media-library__file-library-selected-items__actions__delete"
-								onClick={() => reactMediaLibraryContext.fileDeleteCallback?.(reactMediaLibraryContext.selectedItems[0])}
-							>
-								Delete File
-							</button>
-						)}
-					</React.Fragment>
+				{(filesDeleteCallback !== undefined) && (
+					<button
+						className="react-media-library__file-library-selected-items__actions__delete"
+						onClick={() => filesDeleteCallback?.(selectedItems)}
+					>
+						Delete {selectedItems.length > 1 ? selectedItems.length : ""} File{selectedItems.length > 1 ? "s" : ""}
+					</button>
 				)}
+				<button
+					className="react-media-library__file-library-selected-items__actions__select"
+					onClick={() => filesSelectCallback(selectedItems)}
+				>
+					Select {selectedItems.length > 1 ? selectedItems.length : ""} File{selectedItems.length > 1 ? "s" : ""}
+				</button>
 
 			</div>
 		</div>

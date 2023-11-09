@@ -6,8 +6,8 @@ import FileLibraryCard from "../FileLibraryCard/FileLibraryCard";
 import {FileLibrarySelectedItems} from "../FileLibrarySelectedItems";
 
 const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLibraryProps): ReactElement => {
-
-	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
+	const findDefaultSelected = props.fileLibraryList.filter((item) => props.defaultSelectedItemIds?.includes(item._id));
+	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>(findDefaultSelected);
 
 	function handleModalOnClick(e: MouseEvent) {
 		// Prevent event propagation on child elements
@@ -27,15 +27,15 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 				multiSelect: props.multiSelect,
 				fileLibraryList: props.fileLibraryList,
 				fileUploadCallback: props.fileUploadCallback,
-				multiSelectCallback: (props.multiSelect) ? props.multiSelectCallback : () => {},
-				multiDeleteCallback: (props.multiSelect) ? props.multiDeleteCallback : undefined,
-				fileSelectCallback: (!props.multiSelect) ? props.fileSelectCallback : () => {},
-				fileDeleteCallback: (!props.multiSelect) ? props.fileDeleteCallback : undefined,
+				finishUploadCallback: props.finishUploadCallback,
+				filesSelectCallback: props.filesSelectCallback,
+				filesDeleteCallback: props.filesDeleteCallback,
 				libraryCardComponent: props.libraryCardComponent,
 				selectedItemsComponent: props.selectedItemsComponent,
 				topBarComponent: props.topBarComponent,
 				sortProperty: props.sortProperty,
 				sortAscending: props.sortAscending,
+				acceptedTypes: props.acceptedTypes,
 			}}
 		>
 			<div
@@ -68,8 +68,12 @@ ReactMediaLibrary.defaultProps = {
 	modalTitle: "Media Library",
 	sortProperty: "createdAt",
 	sortAscending: false,
+	show: false,
+	multiSelect: false,
+	fileLibraryList: [],
 	libraryCardComponent: (item) => (<FileLibraryCard {...item} />),
 	selectedItemsComponent: () => (<FileLibrarySelectedItems/>),
+	acceptedTypes: ["image/*"],
 };
 
 export default ReactMediaLibrary;

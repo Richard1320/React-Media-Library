@@ -1,17 +1,27 @@
 import React, {ReactElement, useContext, useState} from 'react';
-import {useDropzone} from 'react-dropzone';
+import {DropzoneOptions, useDropzone} from 'react-dropzone';
 import FileUploadResult, {FileUploadStatus} from "../FileUploadResult/FileUploadResult";
 import {FileUploadListItem} from "../../../types";
 import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
 const FileUpload: React.FC = (): ReactElement => {
-	const {fileUploadCallback} = useContext(ReactMediaLibraryContext);
+	const {fileUploadCallback, finishUploadCallback, acceptedTypes} = useContext(ReactMediaLibraryContext);
 	const [fileUploadList, setFileUploadList] = useState<Array<FileUploadListItem>>([]);
-	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+	const dropzoneOptions: DropzoneOptions = {
+		onDrop,
+	};
+	// Convert accepted types if provided
+	if (acceptedTypes && acceptedTypes.length > 0) {
+		dropzoneOptions.accept = {};
+		for (const type of acceptedTypes) {
+			dropzoneOptions.accept[type] = [];
+		}
+	}
+	const {getRootProps, getInputProps, isDragActive} = useDropzone(dropzoneOptions);
 
 	async function onDrop(acceptedFiles: Array<File>): Promise<void> {
 		// Prepend uploaded file list with new upload items
-		let newFileUploadList: FileUploadListItem[] = acceptedFiles.map((element: File) => {
+		let newFileUploadList: Array<FileUploadListItem> = acceptedFiles.map((element: File) => {
 			return {
 				fileName: element.name,
 				status: FileUploadStatus.PROCESSING,
@@ -27,6 +37,8 @@ const FileUpload: React.FC = (): ReactElement => {
 			newFileUploadList[index].status = (result) ? FileUploadStatus.SUCCESS : FileUploadStatus.FAILED;
 			setFileUploadList(newFileUploadList);
 		}
+
+		finishUploadCallback?.(newFileUploadList);
 	}
 
 	return (

@@ -1,11 +1,9 @@
-import React, {ReactElement, useContext, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import FileUpload from "../FileUpload/FileUpload";
 import FileLibrary from "../FileLibrary/FileLibrary";
-import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
 const ReactMediaLibraryTabs: React.FC = (): ReactElement => {
-	const {fileLibraryList} = useContext(ReactMediaLibraryContext);
-	const [currentTab, setCurrentTab] = useState<"upload"|"browse">((fileLibraryList?.length > 0) ? "browse": "upload");
+	const [currentTab, setCurrentTab] = useState<"upload" | "browse">("browse");
 
 	return (
 		<div className="react-media-library__tabs">
