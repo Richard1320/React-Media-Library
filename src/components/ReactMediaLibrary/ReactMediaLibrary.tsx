@@ -1,10 +1,13 @@
-import React, {MouseEvent, ReactElement} from "react";
+import React, {MouseEvent, ReactElement, useState} from "react";
 import ReactMediaLibraryTabs from "../ReactMediaLibraryTabs/ReactMediaLibraryTabs";
-import {ReactMediaLibraryProps} from "../../../types";
+import {FileLibraryListItem, ReactMediaLibraryProps} from "../../../types";
 import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 import FileLibraryCard from "../FileLibraryCard/FileLibraryCard";
+import {FileLibrarySelectedItems} from "../FileLibrarySelectedItems";
 
 const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLibraryProps): ReactElement => {
+
+	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
 
 	function handleModalOnClick(e: MouseEvent) {
 		// Prevent event propagation on child elements
@@ -19,6 +22,8 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 	return (
 		<ReactMediaLibraryContext.Provider
 			value={{
+				selectedItems: selectedItems,
+				setSelectedItems: setSelectedItems,
 				multiSelect: props.multiSelect,
 				fileLibraryList: props.fileLibraryList,
 				fileUploadCallback: props.fileUploadCallback,
@@ -27,6 +32,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 				fileSelectCallback: (!props.multiSelect) ? props.fileSelectCallback : () => {},
 				fileDeleteCallback: (!props.multiSelect) ? props.fileDeleteCallback : undefined,
 				libraryCardComponent: props.libraryCardComponent,
+				selectedItemsComponent: props.selectedItemsComponent,
 				topBarComponent: props.topBarComponent,
 				sortProperty: props.sortProperty,
 				sortAscending: props.sortAscending,
@@ -62,7 +68,8 @@ ReactMediaLibrary.defaultProps = {
 	modalTitle: "Media Library",
 	sortProperty: "createdAt",
 	sortAscending: false,
-	libraryCardComponent: (item, isSelected) => (<FileLibraryCard isSelected={isSelected} {...item} />),
+	libraryCardComponent: (item) => (<FileLibraryCard {...item} />),
+	selectedItemsComponent: () => (<FileLibrarySelectedItems/>),
 };
 
 export default ReactMediaLibrary;

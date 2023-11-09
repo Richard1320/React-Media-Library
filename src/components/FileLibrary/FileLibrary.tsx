@@ -4,22 +4,30 @@ import {FileLibraryListItem} from "../../../types";
 import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 
 const FileLibrary: React.FC = (): ReactElement => {
-	const reactMediaLibraryContext = useContext(ReactMediaLibraryContext);
-	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
+	const {
+		selectedItems,
+		setSelectedItems,
+		sortProperty,
+		sortAscending,
+		multiSelect,
+		fileLibraryList,
+		libraryCardComponent,
+		topBarComponent,
+		selectedItemsComponent
+	} = useContext(ReactMediaLibraryContext);
 	const [page, setPage] = useState<number>(1);
 	const itemsPerPage = 12;
 
 	function sortArray(a: FileLibraryListItem, b: FileLibraryListItem): -1 | 0 | 1 {
 		try {
-			const property = reactMediaLibraryContext.sortProperty;
-			let valA: any = property !== undefined ? a[property] : 0;
-			let valB: any = property !== undefined ? b[property] : 0;
+			let valA: any = (sortProperty && a[sortProperty]) ? a[sortProperty] : 0;
+			let valB: any = (sortProperty && b[sortProperty]) ? b[sortProperty] : 0;
 
 			// If value is type string, ignore upper and lowercase
 			if (typeof valA === "string") valA = valA.toUpperCase();
 			if (typeof valB === "string") valB = valB.toUpperCase();
 
-			if (reactMediaLibraryContext.sortAscending) {
+			if (sortAscending) {
 				return (valA < valB) ? -1 : 1;
 			} else {
 				return (valA > valB) ? -1 : 1;
@@ -30,34 +38,40 @@ const FileLibrary: React.FC = (): ReactElement => {
 	}
 
 	function onSelect(item: FileLibraryListItem) {
-		if (reactMediaLibraryContext.multiSelect) {
+		const foundIndex = selectedItems.findIndex((element) => element._id === item._id);
+		if (multiSelect) {
 			const newSelectedItems = [...selectedItems];
-			const foundIndex = newSelectedItems.findIndex((element) => element._id === item._id);
 			if (foundIndex > -1) {
-				// Remove item from selected list if already exists
+				// Remove item from selection if already exists
 				newSelectedItems.splice(foundIndex, 1);
 			} else {
-				// Add item to selected list if not exists
+				// Add item to selection if not exists
 				newSelectedItems.push(item);
 			}
 			setSelectedItems(newSelectedItems);
 		} else {
-			setSelectedItems([item]);
+			if (foundIndex > -1) {
+				// Remove item from selection
+				setSelectedItems([]);
+			} else {
+				// Add item to selection
+				setSelectedItems([item]);
+			}
 		}
 	}
 
 	function renderList(): ReactElement[] {
-		if (!reactMediaLibraryContext.fileLibraryList) return [];
+		if (!fileLibraryList) return [];
 
 		const arrayStart = (page - 1) * itemsPerPage;
 		let arrayEnd = arrayStart + itemsPerPage;
-		if (arrayEnd > reactMediaLibraryContext.fileLibraryList.length) {
+		if (arrayEnd > fileLibraryList.length) {
 			// If calculated end extends past length of actual array
 			// Set calculated end as length of array
-			arrayEnd = reactMediaLibraryContext.fileLibraryList.length;
+			arrayEnd = fileLibraryList.length;
 		}
 
-		return [...reactMediaLibraryContext.fileLibraryList]
+		return [...fileLibraryList]
 			.sort(sortArray)
 			.slice(arrayStart, arrayEnd)
 			.map((element: FileLibraryListItem, index: number) => {
@@ -68,80 +82,47 @@ const FileLibrary: React.FC = (): ReactElement => {
 						className={`react-media-library__file-library__list__item ${(isSelected) && "is-selected"}`}
 						onClick={() => onSelect(element)}
 					>
-						{reactMediaLibraryContext.libraryCardComponent?.(element, isSelected)}
+						{libraryCardComponent?.(element, isSelected)}
 					</li>
 				);
 			});
 	}
 
 	return (
-		<div className="react-media-library__file-library">
+		<div className={`react-media-library__file-library ${(selectedItems.length > 0) && "has-selected"}`}>
 
-			{(reactMediaLibraryContext.topBarComponent) && (
+			{(topBarComponent) && (
 				<div className="react-media-library__file-library__top-bar">
-					{reactMediaLibraryContext.topBarComponent()}
+					{topBarComponent()}
 				</div>
 			)}
 
-			{(reactMediaLibraryContext.fileLibraryList?.length) ? (
-				<ul className="react-media-library__file-library__list">
-					{renderList()}
-				</ul>
-			) : (
-				<p className="react-media-library__file-library__empty">
-					No files available. Please upload a file.
-				</p>
-			)}
+			<div className="react-media-library__file-library__row">
+				<div className="react-media-library__file-library__main">
 
-			{(reactMediaLibraryContext.fileLibraryList?.length > itemsPerPage) && (
-				<FileLibraryPager
-					count={reactMediaLibraryContext.fileLibraryList.length}
-					page={page}
-					pagerCallback={(number: number) => setPage(number)}
-					itemsPerPage={itemsPerPage}
-				/>
-			)}
-
-			{(selectedItems.length > 0) && (
-				<div className="react-media-library__file-library__actions">
-					{(reactMediaLibraryContext.multiSelect) ? (
-						<React.Fragment>
-							<button
-								className="react-media-library__file-library__actions__select"
-								onClick={() => reactMediaLibraryContext.multiSelectCallback(selectedItems)}
-							>
-								Select {selectedItems.length} Files
-							</button>
-							{(reactMediaLibraryContext.multiDeleteCallback !== undefined) && (
-								<button
-									className="react-media-library__file-library__actions__delete"
-									onClick={() => reactMediaLibraryContext.multiDeleteCallback?.(selectedItems)}
-								>
-									Delete {selectedItems.length} Files
-								</button>
-							)}
-						</React.Fragment>
+					{(fileLibraryList?.length) ? (
+						<ul className="react-media-library__file-library__list">
+							{renderList()}
+						</ul>
 					) : (
-						<React.Fragment>
-							<button
-								className="react-media-library__file-library__actions__select"
-								onClick={() => reactMediaLibraryContext.fileSelectCallback(selectedItems[0])}
-							>
-								Select File
-							</button>
-							{(reactMediaLibraryContext.fileDeleteCallback !== undefined) && (
-								<button
-									className="react-media-library__file-library__actions__delete"
-									onClick={() => reactMediaLibraryContext.fileDeleteCallback?.(selectedItems[0])}
-								>
-									Delete File
-								</button>
-							)}
-						</React.Fragment>
+						<p className="react-media-library__file-library__empty">
+							No files available. Please upload a file.
+						</p>
 					)}
 
+					{(fileLibraryList?.length > itemsPerPage) && (
+						<FileLibraryPager
+							count={fileLibraryList.length}
+							page={page}
+							pagerCallback={(number: number) => setPage(number)}
+							itemsPerPage={itemsPerPage}
+						/>
+					)}
 				</div>
-			)}
+
+				{(selectedItems.length > 0) && selectedItemsComponent?.()}
+
+			</div>
 
 		</div>
 	);

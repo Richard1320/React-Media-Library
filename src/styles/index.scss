@@ -7,7 +7,6 @@
   align-items: center;
   position: fixed;
   z-index: 9999;
-  transition: opacity 0.3s;
   background-color: rgba($gray-900, 0.8);
   top: 0;
   left: 0;
@@ -110,6 +109,17 @@
   }
 
   &__file-library {
+    &__row {
+      @include media-breakpoint-up(md) {
+        display: flex;
+      }
+    }
+
+    &__main {
+      flex: 1;
+      min-width: 0;
+    }
+
     &__empty {
       text-align: center;
       padding: 3rem 0;
@@ -137,29 +147,6 @@
         }
       }
     }
-
-    &__actions {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-
-      &__select {
-        background-color: $primary;
-        color: $white;
-        border: 0;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-      }
-
-      &__delete {
-        background-color: $danger;
-        color: $white;
-        border: 0;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-      }
-    }
   }
 
   &__file-library-card {
@@ -173,7 +160,7 @@
 
     &__image {
       width: 100%;
-      height: 10rem;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: 50% 50%;
     }
@@ -182,6 +169,9 @@
       padding: 0.5rem 1rem;
       margin: 0;
       border-bottom: 1px solid $gray-200;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &__description {
@@ -224,12 +214,108 @@
     }
   }
 
+  &__file-library-selected-items {
+    @include media-breakpoint-up(md) {
+      width: 33%;
+      display: flex;
+      flex-direction: column;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 25%;
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0 1rem;
+      margin: 0;
+      flex: 1;
+      max-height: calc(80vh - 15rem);
+      overflow: auto;
+
+      &__item {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &__actions {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 0 1rem;
+
+      &__select {
+        background-color: $primary;
+        color: $white;
+        border: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+
+      &__delete {
+        background-color: $danger;
+        color: $white;
+        border: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  &__file-library-selected-items-card {
+    border: 1px solid $gray-400;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    &__image {
+      width: 4rem;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__title {
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__description {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__file-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__actions {
+      button {
+        border: 0;
+        background: none;
+      }
+    }
+  }
+
   &__file-upload {
     margin: 0 1rem;
     padding: 3rem;
     text-align: center;
     border: 2px dashed $gray-400;
     border-radius: 1rem;
+    cursor: pointer;
 
     &.is-drag-active {
       border-color: $success;

@@ -16,8 +16,9 @@ export type FileLibraryProps = {
 	fileLibraryList: Array<FileLibraryListItem>;
 	sortProperty?: "title" | "createdAt" | "size" | "fileName";
 	sortAscending?: boolean;
-	libraryCardComponent?: (item: FileLibraryListItem, isSelected?: boolean) => ReactElement;
+	libraryCardComponent?: (item: FileLibraryListItem) => ReactElement;
 	topBarComponent?: () => ReactElement;
+	selectedItemsComponent?: () => ReactElement;
 } & ({
 	fileSelectCallback: (item: FileLibraryListItem) => void;
 	fileDeleteCallback?: (item: FileLibraryListItem) => void;

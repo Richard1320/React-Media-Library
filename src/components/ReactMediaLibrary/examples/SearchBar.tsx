@@ -22,7 +22,7 @@ const FileLibraryTopBar: React.FC<FileLibraryTopBarProps> = (props: FileLibraryT
 				type="search"
 				value={props.searchValue}
 				onChange={onSearchChange}
-				placeholder="Search files"
+				placeholder="Search file titles or filenames"
 				style={{
 					width: "100%",
 					padding: "0.5rem 1rem",
@@ -44,7 +44,9 @@ export const SearchBar: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) 
 	);
 
 	function filterItem(item: FileLibraryListItem): boolean {
-		return item.title?.includes(searchValue) || item.fileName?.includes(searchValue) || false;
+		return item.title?.toLowerCase().includes(searchValue.toLowerCase()) ||
+			item.fileName?.toLowerCase().includes(searchValue.toLowerCase()) ||
+			false;
 	}
 
 	return (
