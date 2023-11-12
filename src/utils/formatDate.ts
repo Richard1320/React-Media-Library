@@ -1,6 +1,10 @@
-export default function formatDate(date: Date): string {
+export default function formatDate(date: Date | number | string): string {
+	let newDate: Date;
+	if (date instanceof Date) {
+		newDate = date;
+	} else {
+		newDate = new Date(date);
+	}
 
-	const options = {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"};
-
-	return date.toLocaleDateString("en-US", options);
+	return newDate.toLocaleDateString();
 }
