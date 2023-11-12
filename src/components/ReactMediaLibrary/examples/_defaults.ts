@@ -9,8 +9,9 @@ export type ReactMediaLibraryStory = StoryObj<typeof ReactMediaLibrary>;
 
 export const storiesDefaultPrimaryArgs: ReactMediaLibraryProps = {
 	multiSelect: false,
-	show: true,
-	onHide: () => alert("Hide React Media Library"),
+	isOpen: true,
+	onClose: () => {
+	},
 	fileUploadCallback: storiesDefaultFileUploadCallback,
 	fileLibraryList: storiesDefaultFileLibraryList,
 	filesSelectCallback: (items) => alert(`Selected items ${items.map(i => i._id).join(", ")}`),

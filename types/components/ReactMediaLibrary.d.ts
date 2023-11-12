@@ -10,9 +10,9 @@ export type ReactMediaLibraryContextType = FileUploadProps & FileLibraryProps & 
 
 export interface ReactMediaLibraryProps extends FileUploadProps, FileLibraryProps {
 	/** Control to show or hide the modal. **/
-	show: boolean;
+	isOpen: boolean;
 	/** Function that gets called when the user clicks on the close button on the top right or gray overlay background. **/
-	onHide: () => void;
+	onClose: () => void;
 	/** Title that displays at the top of the modal. **/
 	modalTitle?: string;
 	/** Default item(s) to be selected if ID is provided. **/

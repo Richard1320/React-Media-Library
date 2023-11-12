@@ -12,10 +12,10 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 	function handleModalOnClick(e: MouseEvent) {
 		// Prevent event propagation on child elements
 		if (e.currentTarget != e.target) return;
-		props.onHide();
+		props.onClose();
 	}
 
-	if (!props.show) {
+	if (!props.isOpen) {
 		return <React.Fragment/>;
 	}
 
@@ -49,7 +49,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 						</h2>
 						<div className="react-media-library__modal__header__close">
 							<button
-								onClick={props.onHide}
+								onClick={props.onClose}
 							>
 								<span className="icon-close"/>
 							</button>
@@ -68,7 +68,7 @@ ReactMediaLibrary.defaultProps = {
 	modalTitle: "Media Library",
 	sortProperty: "createdAt",
 	sortAscending: false,
-	show: false,
+	isOpen: false,
 	multiSelect: false,
 	fileLibraryList: [],
 	libraryCardComponent: (item) => (<FileLibraryCard {...item} />),
