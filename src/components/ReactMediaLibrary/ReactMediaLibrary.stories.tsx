@@ -11,6 +11,7 @@ const meta: Meta<typeof ReactMediaLibrary> = {
 	component: ReactMediaLibrary,
 	title: "React-Media-Library/ReactMediaLibrary",
 	tags: ["autodocs"],
+	argTypes: {},
 	parameters: {
 		docs: {
 			story: {

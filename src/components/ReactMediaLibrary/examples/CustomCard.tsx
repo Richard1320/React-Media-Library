@@ -3,6 +3,7 @@ import ReactMediaLibrary from "../ReactMediaLibrary";
 import React, {ReactElement, useContext} from "react";
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
 import {ReactMediaLibraryContext} from "../../../context/ReactMediaLibraryContext";
+import {useArgs} from "@storybook/preview-api";
 
 const CustomLibraryCard: React.FC<FileLibraryListItem> = (props: FileLibraryListItem): ReactElement => {
 	const {selectedItems} = useContext(ReactMediaLibraryContext);
@@ -23,11 +24,23 @@ const CustomLibraryCard: React.FC<FileLibraryListItem> = (props: FileLibraryList
 		</div>
 	);
 }
-export const CustomCard: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => (
-	<ReactMediaLibrary
-		{...args}
-	/>
-);
+export const CustomCard: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
+	const [{}, updateArgs] = useArgs<ReactMediaLibraryProps>();
+
+	return (
+		<React.Fragment>
+			<button
+				onClick={() => updateArgs({isOpen: true})}
+			>
+				Open Media Library
+			</button>
+			<ReactMediaLibrary
+				{...args}
+				onClose={() => updateArgs({isOpen: false})}
+			/>
+		</React.Fragment>
+	);
+}
 CustomCard.args = {
 	...storiesDefaultPrimaryArgs,
 	libraryCardComponent: (item) => (<CustomLibraryCard {...item} />),

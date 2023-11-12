@@ -2,16 +2,17 @@ import {FileLibraryListItem, ReactMediaLibraryProps} from "../../../../types";
 import ReactMediaLibrary from "../ReactMediaLibrary";
 import React, {useState} from "react";
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
+import {useArgs} from '@storybook/preview-api';
 
 export const Primary: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
 	const myRandomItem: FileLibraryListItem = args.fileLibraryList[Math.floor(Math.random() * args.fileLibraryList.length)];
-	const [showMediaLibrary, setShowMediaLibrary] = useState<boolean>(false);
 	const [myChosenItem, setMyChosenItem] = useState<FileLibraryListItem>(myRandomItem);
+	const [{isOpen}, updateArgs] = useArgs<ReactMediaLibraryProps>();
 
 	return (
 		<React.Fragment>
 			<button
-				onClick={() => setShowMediaLibrary(true)}
+				onClick={() => updateArgs({isOpen: true})}
 			>
 				Open Media Library
 			</button>
@@ -42,12 +43,12 @@ export const Primary: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) =>
 
 			<ReactMediaLibrary
 				{...args}
-				show={showMediaLibrary}
-				onHide={() => setShowMediaLibrary(false)}
+				isOpen={isOpen}
+				onClose={() => updateArgs({isOpen: false})}
 				defaultSelectedItemIds={[myRandomItem._id]}
 				filesSelectCallback={(items) => {
 					setMyChosenItem(items[0]);
-					setShowMediaLibrary(false);
+					updateArgs({isOpen: false});
 				}}
 			/>
 		</React.Fragment>
@@ -55,4 +56,5 @@ export const Primary: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) =>
 }
 Primary.args = {
 	...storiesDefaultPrimaryArgs,
+	isOpen: false,
 };

@@ -3,6 +3,7 @@ import ReactMediaLibrary from "../ReactMediaLibrary";
 import React, {ChangeEvent, CSSProperties, FormEvent, ReactElement, useState} from "react";
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
 import {FileLibrarySelectedItems} from "../../FileLibrarySelectedItems";
+import {useArgs} from "@storybook/preview-api";
 
 interface FormValues {
 	title: string;
@@ -80,11 +81,23 @@ const CustomSelectedFormComponent: React.FC<FileLibraryListItem> = (props: FileL
 		</form>
 	);
 }
-export const CustomSelectedForm: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => (
-	<ReactMediaLibrary
-		{...args}
-	/>
-);
+export const CustomSelectedForm: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
+	const [{}, updateArgs] = useArgs<ReactMediaLibraryProps>();
+
+	return (
+		<React.Fragment>
+			<button
+				onClick={() => updateArgs({isOpen: true})}
+			>
+				Open Media Library
+			</button>
+			<ReactMediaLibrary
+				{...args}
+				onClose={() => updateArgs({isOpen: false})}
+			/>
+		</React.Fragment>
+	);
+}
 CustomSelectedForm.args = {
 	...storiesDefaultPrimaryArgs,
 	selectedItemsComponent: () => (

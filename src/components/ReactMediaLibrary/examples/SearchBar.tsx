@@ -3,6 +3,7 @@ import ReactMediaLibrary from "../ReactMediaLibrary";
 import React, {ChangeEvent, Dispatch, ReactElement, SetStateAction, useState} from "react";
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
 import {storiesDefaultFileLibraryList} from "./_storiesDefaultFileLibraryList";
+import {useArgs} from "@storybook/preview-api";
 
 interface FileLibraryTopBarProps {
 	searchValue: string;
@@ -35,13 +36,16 @@ const FileLibraryTopBar: React.FC<FileLibraryTopBarProps> = (props: FileLibraryT
 }
 export const SearchBar: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
 	const [searchValue, setSearchValue] = useState<string>("");
+	const [{}, updateArgs] = useArgs<ReactMediaLibraryProps>();
 
-	const topBarComponent = () => (
-		<FileLibraryTopBar
-			searchValue={searchValue}
-			setSearchValue={setSearchValue}
-		/>
-	);
+	function topBarComponent(): ReactElement {
+		return (
+			<FileLibraryTopBar
+				searchValue={searchValue}
+				setSearchValue={setSearchValue}
+			/>
+		);
+	}
 
 	function filterItem(item: FileLibraryListItem): boolean {
 		return item.title?.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -50,11 +54,19 @@ export const SearchBar: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) 
 	}
 
 	return (
-		<ReactMediaLibrary
-			{...args}
-			topBarComponent={topBarComponent}
-			fileLibraryList={storiesDefaultFileLibraryList.filter(filterItem)}
-		/>
+		<React.Fragment>
+			<button
+				onClick={() => updateArgs({isOpen: true})}
+			>
+				Open Media Library
+			</button>
+			<ReactMediaLibrary
+				{...args}
+				onClose={() => updateArgs({isOpen: false})}
+				topBarComponent={topBarComponent}
+				fileLibraryList={storiesDefaultFileLibraryList.filter(filterItem)}
+			/>
+		</React.Fragment>
 	);
 }
 SearchBar.args = {
