@@ -1,0 +1,78 @@
+# React Media Library
+
+Have you ever worked with WordPress? If not, count your blessings. :)
+
+But seriously, using a CMS like WordPress does provide a lot of useful features.
+The feature I miss most as a MERN developer is the media library browser.
+All image fields are edited using a modal where you can select something previously uploaded or drag-and-drop new images from your file browser.
+Well, now you can have something similar for your React app.
+
+Note: this only includes the UI; everybody's app is different, so I can't write your API connections for you.
+
+## Installation
+
+Install it via npm in your project.
+
+```
+npm install react-media-library --save
+```
+
+## Component
+
+This package has one main component you should use: `<ReactMediaLibrary />`.
+
+There is also `<FileLibrarySelectedItems />` to customize your sidebar. See [custom selected form](/story/react-media-library-reactmedialibrary--custom-selected-form).
+
+## Props List
+
+See [React Media Library docs](/docs/react-media-library-reactmedialibrary--docs).
+
+## Functions
+
+### fileUploadCallback
+
+Async callback function when the user chooses a file to upload. This is used for both the drag-and-drop and the browser file select. The file as a Blob is passed in as an argument. This promise should return `true` or `false` to let React Media Library know if the APIs successfully processed the file.
+
+```ts
+async function uploadCallback(file: File): Promise<boolean> {
+    // Process the file data, send it to backend APIs, add it to the database, etc...
+
+    // Return true / false for react-media-library to display upload status
+    return true; // If successful
+    return false; // If failed
+}
+```
+
+### finishUploadCallback
+
+The `fileUploadCallback` is async but awaited and sequential. `finishUploadCallback` is called once all the promises have been completed. This is when you should requery your API to update the `fileLibraryList` with new data.
+
+```ts
+import {FileUploadListItem} from 'react-media-library';
+async function finishUploadCallback(uploadFiles: Array<FileUploadListItem>): void {
+    // Update the `fileLibraryList` with a new list
+}
+```
+
+### filesSelectCallback
+
+Callback function when the user selects a file from the library. Returns an array of [FileLibraryListItem](/docs/react-media-library-filelibrarycard--docs) as an argument. If `multiSelect` is false, it will return an array of one.
+
+```ts
+import {FileLibraryListItem} from 'react-media-library';
+function filesSelectCallback(item: Array<FileLibraryListItem>) {
+    // Use the file, put the file ID into your input field, etc.
+}
+```
+
+### filesDeleteCallback
+
+Optional callback function when the user chooses file(s) and clicks the delete button. By default, the delete button will appear beside the select button in the library tab, or will be hidden if this prop is not set. Passes [FileLibraryListItem](/docs/react-media-library-filelibrarycard--docs) as an argument.  If `multiSelect` is false, it will return an array of one.
+
+```ts
+import {FileLibraryListItem} from 'react-media-library';
+function filesDeleteCallback(item: Array<FileLibraryListItem>) {
+    // Delete the data from your database
+    // Also remember to update the fileLibraryList prop with a new list
+}
+```

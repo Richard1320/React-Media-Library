@@ -12,7 +12,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['React-Media-Library', ['ReactMediaLibrary', 'FileLibraryCard']],
+        order: ['Intro', 'React-Media-Library', ['ReactMediaLibrary', 'FileLibraryCard']],
       },
     },
   },
