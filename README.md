@@ -20,4 +20,4 @@ npm install react-media-library --save
 
 ## Documentation / Examples
 
-See [Storybook](https://github.com/Richard1320/React-Media-Library).
+See [Storybook](https://richard1320.github.io/React-Media-Library/).
