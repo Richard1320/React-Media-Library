@@ -33,7 +33,7 @@ export interface FileLibraryProps {
 	topBarComponent?: () => ReactElement;
 	/** Component to render on the side with an array of selected items. **/
 	selectedItemsComponent?: () => ReactElement;
-	/** Function that gets called when the user submits their file selection. Required if `multiSelect` is `true`. **/
+	/** Function that gets called when the user submits their file selection. **/
 	filesSelectCallback: (items: Array<FileLibraryListItem>) => void;
 	/** Function that gets called when the user deletes their file selection. **/
 	filesDeleteCallback?: (items: Array<FileLibraryListItem>) => void;
