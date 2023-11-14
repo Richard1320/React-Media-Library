@@ -1,4 +1,4 @@
-import React, {MouseEvent, ReactElement, useState} from "react";
+import React, {MouseEvent, ReactElement, useEffect, useState} from "react";
 import ReactMediaLibraryTabs from "../ReactMediaLibraryTabs/ReactMediaLibraryTabs";
 import {FileLibraryListItem, ReactMediaLibraryProps} from "../../../types";
 import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
@@ -6,8 +6,16 @@ import FileLibraryCard from "../FileLibraryCard/FileLibraryCard";
 import {FileLibrarySelectedItems} from "../FileLibrarySelectedItems";
 
 const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLibraryProps): ReactElement => {
-	const findDefaultSelected = props.fileLibraryList.filter((item) => props.defaultSelectedItemIds?.includes(item._id));
-	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>(findDefaultSelected);
+	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
+
+	useEffect(() => {
+		// Asset loads are sometimes async.
+		// Need to check the default and reselect if either the file library list or default select list is updated.
+		if (props.defaultSelectedItemIds?.length) {
+			const filterDefaultSelected = props.fileLibraryList.filter((item) => props.defaultSelectedItemIds?.includes(item._id));
+			setSelectedItems(filterDefaultSelected);
+		}
+	}, [props.fileLibraryList, props.defaultSelectedItemIds]);
 
 	function handleModalOnClick(e: MouseEvent) {
 		// Prevent event propagation on child elements
