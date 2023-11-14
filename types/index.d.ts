@@ -4,5 +4,5 @@ export {FileUploadProps, FileUploadListItem} from "./components/FileUpload";
 export {FileUploadListProps} from "./components/FileUploadList";
 export {FileLibraryProps, FileLibraryListItem} from "./components/FileLibrary";
 export {FileLibraryPagerProps} from "./components/FileLibraryPager";
-export {FileLibrarySelectedItemsProps} from "./components/FileLibrarySelectedItems";
+export {FileLibrarySelectedItems, FileLibrarySelectedItemsProps} from "./components/FileLibrarySelectedItems";
 export {convertFileToBase64} from "./utils";
