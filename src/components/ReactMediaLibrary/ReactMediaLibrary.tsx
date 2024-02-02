@@ -14,6 +14,8 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = (props: ReactMediaLi
 		if (props.defaultSelectedItemIds?.length) {
 			const filterDefaultSelected = props.fileLibraryList.filter((item) => props.defaultSelectedItemIds?.includes(item._id));
 			setSelectedItems(filterDefaultSelected);
+		} else {
+			setSelectedItems([]);
 		}
 	}, [props.fileLibraryList, props.defaultSelectedItemIds]);
 
