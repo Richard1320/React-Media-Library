@@ -10,6 +10,7 @@ const ReactMediaLibraryTabs: React.FC = (): ReactElement => {
 		<div className="react-media-library__tabs__header">
 			<div className={`react-media-library__tabs__header__item ${(currentTab === "browse") && "is-active"}`}>
 			<button
+				type="button"
 				onClick={() => setCurrentTab("browse")}
 			>
 				Browse Files
@@ -17,6 +18,7 @@ const ReactMediaLibraryTabs: React.FC = (): ReactElement => {
 		</div>
 		<div className={`react-media-library__tabs__header__item ${(currentTab === "upload") && "is-active"}`}>
 			<button
+				type="button"
 				onClick={() => setCurrentTab("upload")}
 			>
 				Upload File

@@ -38,6 +38,7 @@ const FileLibrarySelectedItemsCard: React.FC<FileLibraryListItem> = (props: File
 			</div>
 			<div className="react-media-library__file-library-selected-items-card__actions">
 				<button
+					type="button"
 					title="Remove from selected list"
 					onClick={onRemove}
 				>

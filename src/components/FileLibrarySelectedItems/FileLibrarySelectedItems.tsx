@@ -24,6 +24,7 @@ const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props
 			<div className="react-media-library__file-library-selected-items__actions">
 				{(filesDeleteCallback !== undefined) && (
 					<button
+						type="button"
 						className="react-media-library__file-library-selected-items__actions__delete"
 						onClick={() => filesDeleteCallback?.(selectedItems)}
 					>
@@ -31,6 +32,7 @@ const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props
 					</button>
 				)}
 				<button
+					type="button"
 					className="react-media-library__file-library-selected-items__actions__select"
 					onClick={() => filesSelectCallback(selectedItems)}
 				>
