@@ -39,4 +39,6 @@ export interface FileLibraryProps {
 	filesDeleteCallback?: (items: Array<FileLibraryListItem>) => void;
 	/** Allows the user to select multiple items to submit or delete. **/
 	multiSelect?: boolean;
+	/** Default item(s) to be selected if ID is provided. **/
+	defaultSelectedItemIds?: Array<string | number>;
 }

@@ -24,12 +24,12 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = ({
 	topBarComponent,
 }: ReactMediaLibraryProps): ReactElement => {
 	const [selectedItems, setSelectedItems] = useState<Array<FileLibraryListItem>>([]);
+	const filterDefaultSelected = fileLibraryList.filter((item) => defaultSelectedItemIds?.includes(item._id));
 
 	useEffect(() => {
 		// Asset loads are sometimes async.
 		// Need to check the default and reselect if either the file library list or default select list is updated.
 		if (defaultSelectedItemIds?.length) {
-			const filterDefaultSelected = fileLibraryList.filter((item) => defaultSelectedItemIds?.includes(item._id));
 			setSelectedItems(filterDefaultSelected);
 		} else {
 			setSelectedItems([]);
@@ -63,6 +63,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = ({
 				sortProperty: sortProperty,
 				sortAscending: sortAscending,
 				acceptedTypes: acceptedTypes,
+				defaultSelectedItemIds: filterDefaultSelected.map((item) => item._id),
 			}}
 		>
 			<div

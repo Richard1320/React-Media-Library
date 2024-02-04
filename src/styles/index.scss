@@ -20,6 +20,7 @@
       cursor: not-allowed;
     }
   }
+
   .icon-checkmark,
   .icon-success {
     &:before {
@@ -161,6 +162,22 @@
         }
       }
     }
+
+    &__footer {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 1rem 0;
+
+      &__actions {
+        &__deselect {
+          background-color: $primary;
+          color: $white;
+          border: 0;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+        }
+      }
+    }
   }
 
   &__file-library-card {
@@ -201,9 +218,12 @@
   }
 
   &__file-library-pager {
-    margin-top: 1rem;
+    flex: 1;
     display: flex;
-    justify-content: center;
+
+    @include media-breakpoint-up(md) {
+      justify-content: center;
+    }
 
     &__item {
       border: 1px solid $gray-400;
@@ -215,7 +235,7 @@
         border-bottom-left-radius: 0.5rem;
       }
 
-     &.is-last {
+      &.is-last {
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
       }
@@ -352,6 +372,7 @@
     h3 {
       text-align: center;
     }
+
     &__list {
       list-style: none;
       padding: 0;
@@ -370,9 +391,11 @@
         &:last-child {
           border-bottom: 0;
         }
+
         &.status-failed {
           color: $danger;
         }
+
         &.status-success {
           color: $success;
         }

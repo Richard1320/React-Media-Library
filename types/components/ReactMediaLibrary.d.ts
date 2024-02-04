@@ -15,8 +15,6 @@ export interface ReactMediaLibraryProps extends FileUploadProps, FileLibraryProp
 	onClose: () => void;
 	/** Title that displays at the top of the modal. **/
 	modalTitle?: string;
-	/** Default item(s) to be selected if ID is provided. **/
-	defaultSelectedItemIds?: Array<string | number>;
 }
 
 export const ReactMediaLibrary: React.FC<ReactMediaLibraryProps>;
