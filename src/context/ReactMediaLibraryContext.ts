@@ -12,6 +12,7 @@ const reactMediaLibraryDefaultContext: ReactMediaLibraryContextType = {
 	sortProperty: "createdAt",
 	sortAscending: false,
 	multiSelect: false,
+	defaultSelectedItemIds: [],
 }
 
 export const ReactMediaLibraryContext = createContext<ReactMediaLibraryContextType>(reactMediaLibraryDefaultContext);

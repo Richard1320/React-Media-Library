@@ -11,9 +11,11 @@ const FileLibrary: React.FC = (): ReactElement => {
 		sortAscending,
 		multiSelect,
 		fileLibraryList,
+		defaultSelectedItemIds,
 		libraryCardComponent,
 		topBarComponent,
-		selectedItemsComponent
+		selectedItemsComponent,
+		filesSelectCallback
 	} = useContext(ReactMediaLibraryContext);
 	const [page, setPage] = useState<number>(1);
 	const itemsPerPage = 12;
@@ -110,16 +112,32 @@ const FileLibrary: React.FC = (): ReactElement => {
 						</p>
 					)}
 
-					{(fileLibraryList?.length > itemsPerPage) && (
-						<FileLibraryPager
-							count={fileLibraryList.length}
-							page={page}
-							pagerCallback={(number: number) => setPage(number)}
-							itemsPerPage={itemsPerPage}
-						/>
-					)}
+					<div className="react-media-library__file-library__footer">
+						{(fileLibraryList?.length > itemsPerPage) && (
+							<FileLibraryPager
+								count={fileLibraryList.length}
+								page={page}
+								pagerCallback={(number: number) => setPage(number)}
+								itemsPerPage={itemsPerPage}
+							/>
+						)}
+
+						{/** If nothing is selected but something was default selected, then show a deselect button. **/}
+						{(selectedItems.length === 0 && defaultSelectedItemIds && defaultSelectedItemIds.length > 0) && (
+							<div className="react-media-library__file-library__footer__actions">
+								<button
+									type="button"
+									className="react-media-library__file-library__footer__actions__deselect"
+									onClick={() => filesSelectCallback([])}
+								>
+									Deselect File{defaultSelectedItemIds.length > 1 ? "s" : ""}
+								</button>
+							</div>
+						)}
+					</div>
 				</div>
 
+				{/** If something is selected, show the selected items component. **/}
 				{(selectedItems.length > 0) && selectedItemsComponent?.()}
 
 			</div>
