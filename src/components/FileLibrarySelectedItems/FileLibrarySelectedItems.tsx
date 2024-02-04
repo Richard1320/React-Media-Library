@@ -3,7 +3,9 @@ import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
 import {FileLibrarySelectedItemsCard} from "../FileLibrarySelectedItemsCard";
 import {FileLibrarySelectedItemsProps} from "../../../types";
 
-const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props: FileLibrarySelectedItemsProps): ReactElement => {
+const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = ({
+	itemComponent = (item) => (<FileLibrarySelectedItemsCard{...item} />),
+}: FileLibrarySelectedItemsProps): ReactElement => {
 	const {selectedItems, filesSelectCallback, filesDeleteCallback} = useContext(ReactMediaLibraryContext);
 
 	return (
@@ -16,7 +18,7 @@ const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props
 						key={`item-${item._id}`}
 						className="react-media-library__file-library-selected-items__list__item"
 					>
-						{props.itemComponent?.(item)}
+						{itemComponent?.(item)}
 					</li>
 				))}
 			</ul>
@@ -42,10 +44,6 @@ const FileLibrarySelectedItems: React.FC<FileLibrarySelectedItemsProps> = (props
 			</div>
 		</div>
 	);
-};
-
-FileLibrarySelectedItems.defaultProps = {
-	itemComponent: (item) => (<FileLibrarySelectedItemsCard{...item} />),
 };
 
 export default FileLibrarySelectedItems;
