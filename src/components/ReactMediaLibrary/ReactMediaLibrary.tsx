@@ -31,6 +31,8 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = ({
 		// Need to check the default and reselect if either the file library list or default select list is updated.
 		if (defaultSelectedItemIds?.length) {
 			setSelectedItems(filterDefaultSelected);
+		} else {
+			setSelectedItems([]);
 		}
 	}, [fileLibraryList, defaultSelectedItemIds]);
 
@@ -75,6 +77,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = ({
 						</h2>
 						<div className="react-media-library__modal__header__close">
 							<button
+								type="button"
 								onClick={onClose}
 							>
 								<span className="icon-close"/>
