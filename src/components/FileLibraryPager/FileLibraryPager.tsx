@@ -18,6 +18,7 @@ const FileLibraryPager: React.FC<FileLibraryPagerProps> = ({
 
 		links.push(
 			<button
+				type="button"
 				className="react-media-library__file-library-pager__item is-first"
 				key="first"
 				onClick={() => pagerCallback(1)}
@@ -28,6 +29,7 @@ const FileLibraryPager: React.FC<FileLibraryPagerProps> = ({
 		);
 		links.push(
 			<button
+				type="button"
 				className="react-media-library__file-library-pager__item is-prev"
 				key="prev"
 				onClick={() => pagerCallback(prevPage)}
@@ -43,6 +45,7 @@ const FileLibraryPager: React.FC<FileLibraryPagerProps> = ({
 			if (number > 0 && number <= totalPages) {
 				links.push(
 					<button
+						type="button"
 						className={`react-media-library__file-library-pager__item ${(number === page) && "is-active"}`}
 						key={number}
 						onClick={() => pagerCallback(number)}
@@ -55,6 +58,7 @@ const FileLibraryPager: React.FC<FileLibraryPagerProps> = ({
 
 		links.push(
 			<button
+				type="button"
 				className="react-media-library__file-library-pager__item is-next"
 				key="next"
 				onClick={() => pagerCallback(nextPage)}
@@ -65,6 +69,7 @@ const FileLibraryPager: React.FC<FileLibraryPagerProps> = ({
 		);
 		links.push(
 			<button
+				type="button"
 				className="react-media-library__file-library-pager__item is-last"
 				key="last"
 				onClick={() => pagerCallback(totalPages)}

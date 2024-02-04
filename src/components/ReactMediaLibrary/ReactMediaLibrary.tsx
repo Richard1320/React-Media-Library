@@ -74,6 +74,7 @@ const ReactMediaLibrary: React.FC<ReactMediaLibraryProps> = ({
 						</h2>
 						<div className="react-media-library__modal__header__close">
 							<button
+								type="button"
 								onClick={onClose}
 							>
 								<span className="icon-close"/>
