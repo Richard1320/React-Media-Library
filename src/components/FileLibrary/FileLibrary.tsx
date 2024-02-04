@@ -1,4 +1,4 @@
-import React, {ReactElement, useContext, useState} from "react";
+import React, {ReactElement, useContext, useMemo, useState} from "react";
 import FileLibraryPager from "../FileLibraryPager/FileLibraryPager";
 import {FileLibraryListItem} from "../../../types";
 import {ReactMediaLibraryContext} from "../../context/ReactMediaLibraryContext";
@@ -17,8 +17,13 @@ const FileLibrary: React.FC = (): ReactElement => {
 		selectedItemsComponent,
 		filesSelectCallback
 	} = useContext(ReactMediaLibraryContext);
-	const [page, setPage] = useState<number>(1);
+	const fileLibraryListSorted = useMemo(() => {
+		return [...fileLibraryList].sort(sortArray);
+	}, [fileLibraryList, sortArray]);
 	const itemsPerPage = 12;
+	const firstItemIndex = (defaultSelectedItemIds?.length) ? fileLibraryListSorted.findIndex((item) => item._id === defaultSelectedItemIds[0]) : 0;
+	const initialPage = Math.ceil((firstItemIndex + 1) / itemsPerPage);
+	const [page, setPage] = useState<number>(initialPage);
 
 	function sortArray(a: FileLibraryListItem, b: FileLibraryListItem): -1 | 0 | 1 {
 		try {
@@ -73,8 +78,7 @@ const FileLibrary: React.FC = (): ReactElement => {
 			arrayEnd = fileLibraryList.length;
 		}
 
-		return [...fileLibraryList]
-			.sort(sortArray)
+		return fileLibraryListSorted
 			.slice(arrayStart, arrayEnd)
 			.map((element: FileLibraryListItem, index: number) => {
 				const isSelected: boolean = !!selectedItems.find((item) => item._id === element._id);
