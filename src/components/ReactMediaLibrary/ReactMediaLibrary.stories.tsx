@@ -6,6 +6,8 @@ import {CustomCard as CustomCardComponent} from "./examples/CustomCard";
 import {SearchBar as SearchBarComponent} from "./examples/SearchBar";
 import {CustomSelectedForm as CustomSelectedFormComponent} from "./examples/CustomSelectedForm";
 import {Empty as EmptyComponent} from "./examples/Empty";
+import {DisableUpload as DisableUploadComponent} from "./examples/DisableUpload";
+import {DisableBrowse as DisableBrowseComponent} from "./examples/DisableBrowse";
 
 const meta: Meta<typeof ReactMediaLibrary> = {
 	component: ReactMediaLibrary,
@@ -49,3 +51,11 @@ export const CustomSelectedForm = CustomSelectedFormComponent;
  * This is the view if the list of files is empty.
  */
 export const Empty = EmptyComponent;
+/**
+ * If `fileUploadCallback` is `undefined`, then it will disable the upload tab so the user can only select existing files.
+ */
+export const DisableUpload = DisableUploadComponent;
+/**
+ * If `filesSelectCallback` is `undefined`, then it will disable the browse tab so the user can only upload.
+ */
+export const DisableBrowse = DisableBrowseComponent;
