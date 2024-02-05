@@ -33,8 +33,8 @@ export interface FileLibraryProps {
 	topBarComponent?: () => ReactElement;
 	/** Component to render on the side with an array of selected items. **/
 	selectedItemsComponent?: () => ReactElement;
-	/** Function that gets called when the user submits their file selection. **/
-	filesSelectCallback: (items: Array<FileLibraryListItem>) => void;
+	/** Function that gets called when the user submits their file selection. Leave empty to disable the browse tab. **/
+	filesSelectCallback?: (items: Array<FileLibraryListItem>) => void;
 	/** Function that gets called when the user deletes their file selection. **/
 	filesDeleteCallback?: (items: Array<FileLibraryListItem>) => void;
 	/** Allows the user to select multiple items to submit or delete. **/
