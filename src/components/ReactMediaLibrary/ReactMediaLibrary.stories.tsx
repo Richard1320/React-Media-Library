@@ -3,7 +3,7 @@ import ReactMediaLibrary from "./ReactMediaLibrary";
 import {Primary as PrimaryComponent} from "./examples/Primary";
 import {MultiSelect as MultiSelectComponent} from "./examples/MultiSelect";
 import {CustomCard as CustomCardComponent} from "./examples/CustomCard";
-import {CustomCardVideo as CustomCardVideoComponent} from "./examples/CustomCardVideo";
+import {CustomSelectedVideo as CustomSelectedVideoComponent} from "./examples/CustomSelectedVideo";
 import {SearchBar as SearchBarComponent} from "./examples/SearchBar";
 import {CustomSelectedForm as CustomSelectedFormComponent} from "./examples/CustomSelectedForm";
 import {Empty as EmptyComponent} from "./examples/Empty";
@@ -35,10 +35,6 @@ export const Primary = PrimaryComponent;
  */
 export const MultiSelect = MultiSelectComponent;
 /**
- * This has the custom card render a video element instead of an image.
- */
-export const CustomCardVideo = CustomCardVideoComponent;
-/**
  * This has a custom component render for the main browse tab card.
  */
 export const CustomCard = CustomCardComponent;
@@ -52,6 +48,10 @@ export const SearchBar = SearchBarComponent;
  * You can provide different information than the browse tab or even have an edit form.
  */
 export const CustomSelectedForm = CustomSelectedFormComponent;
+/**
+ * This renders a video element as the selected item instead of an image.
+ */
+export const CustomSelectedVideo = CustomSelectedVideoComponent;
 /**
  * This is the view if the list of files is empty.
  */

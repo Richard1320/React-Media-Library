@@ -1,24 +1,17 @@
 import {FileLibraryListItem, ReactMediaLibraryProps} from "../../../../types";
 import ReactMediaLibrary from "../ReactMediaLibrary";
-import React, {ReactElement, useContext} from "react";
+import React, {ReactElement} from "react";
 import {ReactMediaLibraryStory, storiesDefaultPrimaryArgs} from "./_defaults";
-import {ReactMediaLibraryContext} from "../../../context/ReactMediaLibraryContext";
 import {useArgs} from "@storybook/preview-api";
+import {FileLibrarySelectedItems} from "../../FileLibrarySelectedItems";
 
-const CustomLibraryCardVideo: React.FC<FileLibraryListItem> = (props: FileLibraryListItem): ReactElement => {
-	const {selectedItems} = useContext(ReactMediaLibraryContext);
-	const isSelected: boolean = !!selectedItems.find((element) => element._id === props._id);
-
+const CustomSelectedFormVideoComponent: React.FC<FileLibraryListItem> = (props: FileLibraryListItem): ReactElement => {
 	return (
-		<div
-			style={{
-				backgroundColor: (isSelected) ? "skyblue" : "white",
-			}}
-		>
+		<div>
 			<video
 				controls={true}
 				poster={props.thumbnailUrl}
-				autoPlay={false}
+				autoPlay={true}
 				style={{
 					width: "100%",
 				}}
@@ -28,13 +21,13 @@ const CustomLibraryCardVideo: React.FC<FileLibraryListItem> = (props: FileLibrar
 					type="video/mp4"
 				/>
 			</video>
-			<h5>
-				{props.title}
-			</h5>
+			<p>
+				{props.fileName}
+			</p>
 		</div>
 	);
 }
-export const CustomCardVideo: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
+export const CustomSelectedVideo: ReactMediaLibraryStory = (args: ReactMediaLibraryProps) => {
 	const [{}, updateArgs] = useArgs<ReactMediaLibraryProps>();
 
 	return (
@@ -51,9 +44,13 @@ export const CustomCardVideo: ReactMediaLibraryStory = (args: ReactMediaLibraryP
 		</React.Fragment>
 	);
 }
-CustomCardVideo.args = {
+CustomSelectedVideo.args = {
 	...storiesDefaultPrimaryArgs,
-	libraryCardComponent: (item) => (<CustomLibraryCardVideo {...item} />),
+	selectedItemsComponent: () => (
+		<FileLibrarySelectedItems
+			itemComponent={(item) => (<CustomSelectedFormVideoComponent {...item} />)}
+		/>
+	),
 	fileLibraryList: [
 		{
 			"_id": "6549e02fb0612d12ca163aaa",
