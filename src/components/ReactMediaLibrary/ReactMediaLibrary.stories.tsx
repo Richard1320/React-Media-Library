@@ -3,6 +3,7 @@ import ReactMediaLibrary from "./ReactMediaLibrary";
 import {Primary as PrimaryComponent} from "./examples/Primary";
 import {MultiSelect as MultiSelectComponent} from "./examples/MultiSelect";
 import {CustomCard as CustomCardComponent} from "./examples/CustomCard";
+import {CustomCardVideo as CustomCardVideoComponent} from "./examples/CustomCardVideo";
 import {SearchBar as SearchBarComponent} from "./examples/SearchBar";
 import {CustomSelectedForm as CustomSelectedFormComponent} from "./examples/CustomSelectedForm";
 import {Empty as EmptyComponent} from "./examples/Empty";
@@ -33,6 +34,10 @@ export const Primary = PrimaryComponent;
  * This will allow the user to select multiple items to submit or delete.
  */
 export const MultiSelect = MultiSelectComponent;
+/**
+ * This has the custom card render a video element instead of an image.
+ */
+export const CustomCardVideo = CustomCardVideoComponent;
 /**
  * This has a custom component render for the main browse tab card.
  */
